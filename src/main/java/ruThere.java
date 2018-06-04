@@ -117,7 +117,7 @@ public class ruThere {
         // Add string 5/28/2018 value
         values.add(new CellData()
                 .setUserEnteredValue(new ExtendedValue()
-                        .setStringValue(("iAmHere"))));
+                        .setStringValue(("iAmHereeeeeeeee"))));
 
         // Prepare request with proper row and column and its value
         requests.add(new Request()
@@ -139,7 +139,7 @@ public class ruThere {
          // Add string 5/28/2018 value
          valuesNew.add(new CellData()
                  .setUserEnteredValue(new ExtendedValue()
-                         .setStringValue(("Yes"))));
+                         .setStringValue(("Yesssssssssss"))));
 
          // Prepare request with proper row and column and its value
          requests.add(new Request()
@@ -147,7 +147,7 @@ public class ruThere {
                          .setStart(new GridCoordinate()
                                  .setSheetId(0)
                                  .setRowIndex(1)     // set the row to row 1 
-                                 .setColumnIndex(6)) // set the new column 6 to value "yes" at row 1
+                                 .setColumnIndex(4)) // set the new column 6 to value "yes" at row 1
                          .setRows(Arrays.asList(
                                  new RowData().setValues(valuesNew)))
                          .setFields("userEnteredValue,userEnteredFormat.backgroundColor")));        
