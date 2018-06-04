@@ -117,7 +117,7 @@ public class ruThere {
         // Add string 5/28/2018 value
         values.add(new CellData()
                 .setUserEnteredValue(new ExtendedValue()
-                        .setStringValue(("iAmHereeeeeeeee"))));
+                        .setStringValue(("iAmHereNow"))));
 
         // Prepare request with proper row and column and its value
         requests.add(new Request()
