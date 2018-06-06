@@ -215,4 +215,7 @@ public class ruThere {
         return randomnum;
 
     }
+    /**
+     * @return the passcode for the day
+     */
 }
