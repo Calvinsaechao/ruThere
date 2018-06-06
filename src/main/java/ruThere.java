@@ -33,7 +33,7 @@ public class ruThere {
 
     /** Directory to store user credentials for this application. */
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
-        System.getProperty("user.home"), ".credentials/sheets.googleapis.com-java-quickstart.json");
+        System.getProperty("user.home"), "credentials/sheets.googleapis.com-java-quickstart.json");
 
     /** Global instance of the {@link FileDataStoreFactory}. */
     private static FileDataStoreFactory DATA_STORE_FACTORY;
@@ -179,6 +179,7 @@ public class ruThere {
     public static Timestamp getTimeStamp(){
         Timestamp date = new Timestamp(System.currentTimeMillis());
         date.setYear(date.getYear() + 1900);
+        date.setMonth(date.getMonth() + 1);
         System.out.println(date.getYear());
         return date;
         /**
