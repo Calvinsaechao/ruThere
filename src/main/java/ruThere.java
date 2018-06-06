@@ -173,7 +173,7 @@ public class ruThere {
      	        .setRequests(requests);
      	service.spreadsheets().batchUpdate(spreadsheetId, batchUpdateRequestNew)
      	        .execute();
-        getPassword();
+        getCode();
     }
 
     public static Timestamp getTimeStamp(){
@@ -208,7 +208,7 @@ public class ruThere {
      * @return current column in use for the date
      */
 
-    public static int getPassword() {
+    public static int getCode() {
         int randomnum = (int)(Math.random()*9000)+1000;
         System.out.println("today's passcode is:");
         System.out.print(randomnum);
