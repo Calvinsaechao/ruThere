@@ -14,19 +14,23 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.*;
 import com.google.api.services.sheets.v4.Sheets;
+import com.google.api.services.sheets.v4.model.ValueRange;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
+import java.util.Date;
 
 public class ruThere {
     /** Application name. */
     private static final String APPLICATION_NAME =
-        "ruThere";
+            "ruThere";
 
     /** Directory to store user credentials for this application. */
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
@@ -100,13 +104,28 @@ public class ruThere {
     }
 
     public static void main(String[] args) throws IOException {
+        //Scanner
+        Scanner kb = new Scanner(System.in);
+        //Counts for current # of students and current column of date.
+        //Column 6 is the column for the counts (update counts from G2 and G3)
+        int dateCol = 0; //count for date column
+        int stuCount = 0; //count for amount of students
+        Timestamp date = getTimeStamp();
+        System.out.println("Date: " + date.getDay() + "/" + date.getMonth() + "/" + date.getYear());
         // Build a new authorized API client service.
         Sheets service = getSheetsService();
 
-        // Prints the names and majors of students in a sample spreadsheet:
-        // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
         // Todo: change this text to have your own spreadsheetID
-        String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
+        System.out.print("Enter your spreadsheet ID--> ");
+        String spreadsheetId = kb.nextLine();
+        //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
+        //gets the spreadsheet data
+        String range = "F1:F2";
+        String valueRenderOption = "FORMATTED_VALUE";
+        Sheets.Spreadsheets.Values.Get request =
+                service.spreadsheets().values().get(spreadsheetId, range);
+        ValueRange response = request.execute();
+        System.out.println(response.get(1)); // still needs work Calvin is working on it
  
         // Create requests object
         List<Request> requests = new ArrayList<>();
@@ -117,15 +136,15 @@ public class ruThere {
         // Add string 5/28/2018 value
         values.add(new CellData()
                 .setUserEnteredValue(new ExtendedValue()
-                        .setStringValue(("iAmHereNow"))));
+                        .setStringValue((date.getDay() + "/" + date.getMonth() + "/" + date.getYear()))));
 
         // Prepare request with proper row and column and its value
         requests.add(new Request()
                 .setUpdateCells(new UpdateCellsRequest()
                         .setStart(new GridCoordinate()
                                 .setSheetId(0)
-                                .setRowIndex(0)     // set the row to row 0 
-                                .setColumnIndex(6)) // set the new column 6 to value 5/28/2018 at row 0
+                                .setRowIndex(0)     // set the row to row 0
+                                .setColumnIndex(dateCol)) // set the new column 6 to value 5/28/2018 at row 0
                         .setRows(Arrays.asList(
                                 new RowData().setValues(values)))
                         .setFields("userEnteredValue,userEnteredFormat.backgroundColor")));
@@ -139,7 +158,7 @@ public class ruThere {
          // Add string 5/28/2018 value
          valuesNew.add(new CellData()
                  .setUserEnteredValue(new ExtendedValue()
-                         .setStringValue(("Yesssssssssss"))));
+                         .setStringValue(("Yes"))));
 
          // Prepare request with proper row and column and its value
          requests.add(new Request()
@@ -147,16 +166,47 @@ public class ruThere {
                          .setStart(new GridCoordinate()
                                  .setSheetId(0)
                                  .setRowIndex(1)     // set the row to row 1 
-                                 .setColumnIndex(4)) // set the new column 6 to value "yes" at row 1
+                                 .setColumnIndex(dateCol)) // set the new column 6 to value "yes" at row 1
                          .setRows(Arrays.asList(
                                  new RowData().setValues(valuesNew)))
                          .setFields("userEnteredValue,userEnteredFormat.backgroundColor")));        
          BatchUpdateSpreadsheetRequest batchUpdateRequestNew = new BatchUpdateSpreadsheetRequest()
      	        .setRequests(requests);
      	service.spreadsheets().batchUpdate(spreadsheetId, batchUpdateRequestNew)
-     	        .execute();        
-    
+     	        .execute();
+
     }
+
+    public static Timestamp getTimeStamp(){
+        Timestamp date = new Timestamp(System.currentTimeMillis());
+        date.setYear(date.getYear() + 1900);
+        System.out.println(date.getYear());
+        return date;
+        /**
+         * @return Timestamp object of current date and formats the year to current year
+         */
+    }
+
+    public static int retrieveIntData(String spreadsheetId, String range){
+        return 1;
+    }
+    /**
+     * @return int data from spreadsheet
+     */
+
+    public static int getStuCount(){
+        return 1;
+    }
+    /**
+     * @return current student count
+     */
+
+    public static int getDateCol(){
+        return 1;
+    }
+    /**
+     * @return current column in use for the date
+     */
 
 
 }
