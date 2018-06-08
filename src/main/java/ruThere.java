@@ -117,90 +117,51 @@ public class ruThere {
          *  +SheetID
          */
 
+
         //Counts for current # of students and current column of date.
         //Column 6 is the column for the counts (update counts from G2 and G3)
 
         int dateCol = 0; //count for date column
-        int stuCount = 0; //count for amount of students
+        int studentCount = 0; //count for amount of students
 
         //Start of Program
         while (true) {
             Timestamp date = getTimeStamp();
+
             System.out.println("Date: " + date.getDay() + "/" + date.getMonth() + "/" + date.getYear());
             // Build a new authorized API client service.
             Sheets service = getSheetsService();
 
-            //validate spreadsheet id and update static variables
+            //validate spreadsheet id
             String spreadsheetId = getSpreadsheetId(kb, service);
 
             //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
-            //gets the spreadsheet data
+            //gets the spreadsheet data for dateCol and studentCount
 
-            String dateAndStuRange = "F1:F2"; //locations for dateCol and stuCount
+            //testing getValues() function NOT FUNISHED Todo: do this (Calvin)
+            /**getIntValue(1, 0, date, service, spreadsheetId);
+            System.out.println("STOP");
+            kb.nextLine();
+             **/
+
+            String dateAndStuRange = "F1:F2"; //locations for dateCol and studentCount
             String valueRenderOption = "UNFORMATTED_VALUE";
             Sheets.Spreadsheets.Values.Get request =
                     service.spreadsheets().values().get(spreadsheetId, dateAndStuRange);
             ValueRange response = request.execute();
-            stuCount = getStuCount(response);
+            studentCount = getStudentCount(response);
             dateCol = getDateCol(response);
 
-
-            // Create requests object
-            List<Request> requests = new ArrayList<>();
-
-            // Create values object
-            List<CellData> values = new ArrayList<>();
-
-            // Add string 5/28/2018 value
-            values.add(new CellData()
-                    .setUserEnteredValue(new ExtendedValue()
-                            .setStringValue((date.getDay() + "/" + date.getMonth() + "/" + date.getYear()))));
-
-            // Prepare request with proper row and column and its value
-            requests.add(new Request()
-                    .setUpdateCells(new UpdateCellsRequest()
-                            .setStart(new GridCoordinate()
-                                    .setSheetId(0)
-                                    .setRowIndex(0)     // set the row to row 0
-                                    .setColumnIndex(dateCol)) // set the new column 6 to value 5/28/2018 at row 0
-                            .setRows(Arrays.asList(
-                                    new RowData().setValues(values)))
-                            .setFields("userEnteredValue,userEnteredFormat.backgroundColor")));
-
-            BatchUpdateSpreadsheetRequest batchUpdateRequest = new BatchUpdateSpreadsheetRequest()
-                    .setRequests(requests);
-            service.spreadsheets().batchUpdate(spreadsheetId, batchUpdateRequest)
-                    .execute();
-
-            List<CellData> valuesNew = new ArrayList<>();
-            // Add string 5/28/2018 value
-            valuesNew.add(new CellData()
-                    .setUserEnteredValue(new ExtendedValue()
-                            .setStringValue(("Yes"))));
-
-            // Prepare request with proper row and column and its value
-            requests.add(new Request()
-                    .setUpdateCells(new UpdateCellsRequest()
-                            .setStart(new GridCoordinate()
-                                    .setSheetId(0)
-                                    .setRowIndex(1)     // set the row to row 1
-                                    .setColumnIndex(dateCol)) // set the new column 6 to value "yes" at row 1
-                            .setRows(Arrays.asList(
-                                    new RowData().setValues(valuesNew)))
-                            .setFields("userEnteredValue,userEnteredFormat.backgroundColor")));
-            BatchUpdateSpreadsheetRequest batchUpdateRequestNew = new BatchUpdateSpreadsheetRequest()
-                    .setRequests(requests);
-            service.spreadsheets().batchUpdate(spreadsheetId, batchUpdateRequestNew)
-                    .execute();
-            getCode();
+            //generate new date ToDo: automatically parse and validate
+            putValue(dateCol,0, (date.getDay() + "/" + date.getMonth() + "/" + date.getYear()), date, service, spreadsheetId);
+            putValue(dateCol,1, "Yes", date, service, spreadsheetId);
         }
     }
 
     public static Timestamp getTimeStamp(){
         Timestamp date = new Timestamp(System.currentTimeMillis());
         date.setYear(date.getYear() + 1900);
-        date.setMonth(date.getMonth() + 1);
-        System.out.println(date.getYear());
+        date.setMonth(date.getMonth() +1);
         return date;
         /**
          * @return Timestamp object of current date and formats the year to current year
@@ -208,7 +169,7 @@ public class ruThere {
     }
 
 
-    public static int getStuCount(ValueRange response){
+    public static int getStudentCount(ValueRange response){
         int value = Integer.parseInt(response.getValues().get(0).toArray()[0].toString());
         return value;
     }
@@ -254,4 +215,42 @@ public class ruThere {
         }
         return spreadsheetId;
     }
+
+    public static void putValue(int col, int row, String value, Timestamp date, Sheets service, String spreadsheetId)throws IOException{
+        List<Request> requests = new ArrayList<>();
+
+        // Create values object
+        List<CellData> values = new ArrayList<>();
+
+        // Add string 5/28/2018 value
+        values.add(new CellData()
+                .setUserEnteredValue(new ExtendedValue()
+                        .setStringValue(value)));
+
+        // Prepare request with proper row and column and its value
+        requests.add(new Request()
+                .setUpdateCells(new UpdateCellsRequest()
+                        .setStart(new GridCoordinate()
+                                .setSheetId(0)
+                                .setRowIndex(row)     // set the row to row 0
+                                .setColumnIndex(col)) // set the new column 6 to value 5/28/2018 at row 0
+                        .setRows(Arrays.asList(
+                                new RowData().setValues(values)))
+                        .setFields("userEnteredValue,userEnteredFormat.backgroundColor")));
+
+        BatchUpdateSpreadsheetRequest batchUpdateRequest = new BatchUpdateSpreadsheetRequest()
+                .setRequests(requests);
+        service.spreadsheets().batchUpdate(spreadsheetId, batchUpdateRequest)
+                .execute();
+    }
+    /**
+     * put method
+     */
+
+    public static int getIntValue(int col, int row, Timestamp date, Sheets service, String spreadsheetId)throws IOException{
+        return 0;
+    }
+    /**
+     * gets and returns a primitive int method
+     */
 }
