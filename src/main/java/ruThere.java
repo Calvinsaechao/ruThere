@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ruThere {
+
+
     /** Application name. */
     private static final String APPLICATION_NAME =
             "ruThere";
@@ -105,10 +107,6 @@ public class ruThere {
     public static void main(String[] args) throws IOException {
         //Scanner
         Scanner kb = new Scanner(System.in);
-        //Counts for current # of students and current column of date.
-        //Column 6 is the column for the counts (update counts from G2 and G3)
-        int dateCol = 0; //count for date column
-        int stuCount = 0; //count for amount of students
 
         //Todo: create this demo (For Paul)
         //Json File Demo
@@ -119,6 +117,12 @@ public class ruThere {
          *  +SheetID
          */
 
+        //Counts for current # of students and current column of date.
+        //Column 6 is the column for the counts (update counts from G2 and G3)
+
+        int dateCol = 0; //count for date column
+        int stuCount = 0; //count for amount of students
+
         //Start of Program
         while (true) {
             Timestamp date = getTimeStamp();
@@ -126,17 +130,19 @@ public class ruThere {
             // Build a new authorized API client service.
             Sheets service = getSheetsService();
 
-            System.out.print("Enter your spreadsheet ID--> ");
-            String spreadsheetId = kb.nextLine();
+            //validate spreadsheet id and update static variables
+            String spreadsheetId = getSpreadsheetId(kb, service);
+
             //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
             //gets the spreadsheet data
 
-            String range = "F1:F2";
-            String valueRenderOption = "FORMATTED_VALUE";
+            String dateAndStuRange = "F1:F2"; //locations for dateCol and stuCount
+            String valueRenderOption = "UNFORMATTED_VALUE";
             Sheets.Spreadsheets.Values.Get request =
-                    service.spreadsheets().values().get(spreadsheetId, range);
+                    service.spreadsheets().values().get(spreadsheetId, dateAndStuRange);
             ValueRange response = request.execute();
-            System.out.println(response.getValues().get(1)); // still needs work Calvin is working on it
+            stuCount = getStuCount(response);
+            dateCol = getDateCol(response);
 
 
             // Create requests object
@@ -201,22 +207,18 @@ public class ruThere {
          */
     }
 
-    public static int retrieveIntData(String spreadsheetId, String range){
-        return 1;
-    }
-    /**
-     * @return int data from spreadsheet
-     */
 
-    public static int getStuCount(){
-        return 1;
+    public static int getStuCount(ValueRange response){
+        int value = Integer.parseInt(response.getValues().get(0).toArray()[0].toString());
+        return value;
     }
     /**
      * @return current student count
      */
 
-    public static int getDateCol(){
-        return 1;
+    public static int getDateCol(ValueRange response){
+        int value = Integer.parseInt(response.getValues().get(1).toArray()[0].toString());
+        return value;
     }
     /**
      * @return current column in use for the date
@@ -232,4 +234,24 @@ public class ruThere {
     /**
      * @return the passcode for the day
      */
+
+    public static String getSpreadsheetId(Scanner kb, Sheets service) throws IOException{
+        String range = "F1:F2";
+        String valueRenderOption = "FORMATTED_VALUE";
+        String spreadsheetId = "";
+        boolean start = true;
+        while(start) {
+            try {
+                System.out.print("Enter your spreadsheet ID--> ");
+                spreadsheetId = kb.nextLine();
+                Sheets.Spreadsheets.Values.Get request =
+                        service.spreadsheets().values().get(spreadsheetId, range);
+                ValueRange response = request.execute();
+                start = false;
+            } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
+                System.out.println("Invalid Sheet ID");
+            }
+        }
+        return spreadsheetId;
+    }
 }
