@@ -123,9 +123,13 @@ public class ruThere {
 
         int dateCol = 0; //count for date column
         int studentCount = 0; //count for amount of students
+        String classId = ""; //defines the sheet for the class
+        List<List<Object>> cells = null; //data from the classId
 
         //Start of Program
         while (true) {
+            //Todo: instructor side
+            //Todo: student side
             Timestamp date = getTimeStamp();
 
             System.out.println("Date: " + date.getDay() + "/" + date.getMonth() + "/" + date.getYear());
@@ -135,14 +139,12 @@ public class ruThere {
             //validate spreadsheet id
             String spreadsheetId = getSpreadsheetId(kb, service);
 
+
             //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
             //gets the spreadsheet data for dateCol and studentCount
-
-            //testing getValues() function NOT FUNISHED Todo: do this (Calvin)
-            /**getIntValue(1, 0, date, service, spreadsheetId);
-            System.out.println("STOP");
-            kb.nextLine();
-             **/
+            //gets all the cells into a List<List<Object>>
+            cells = getCells(classId, service, spreadsheetId, kb);
+            Object cell = getCell(cells);
 
             String dateAndStuRange = "F1:F2"; //locations for dateCol and studentCount
             String valueRenderOption = "UNFORMATTED_VALUE";
@@ -247,10 +249,30 @@ public class ruThere {
      * put method
      */
 
-    public static int getIntValue(int col, int row, Timestamp date, Sheets service, String spreadsheetId)throws IOException{
-        return 0;
+    public static List<List<Object>> getCells(String classId, Sheets service, String spreadsheetId, Scanner kb)throws IOException{
+        while(true) {
+            try {
+                System.out.print("Enter the classId--> ");
+                classId = kb.nextLine();
+                String dateAndStuRange = classId; //locations for dateCol and studentCount
+                String valueRenderOption = "UNFORMATTED_VALUE";
+                Sheets.Spreadsheets.Values.Get request =
+                        service.spreadsheets().values().get(spreadsheetId, dateAndStuRange);
+                ValueRange response = request.execute();
+                return response.getValues();
+            } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
+                System.out.println("invalid classId");
+            }
+        }
     }
     /**
-     * gets and returns a primitive int method
+     * gets and returns a List<List<Object>> with all the cells in the specific sheetId and classId
+     */
+
+    public static Object getCell(int row, int col, List<List<Object>> cell){
+        return cell.get(row).get(col);
+    }
+    /**
+     * gets the cell value
      */
 }
