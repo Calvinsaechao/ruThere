@@ -20,11 +20,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Date;
 
 public class ruThere {
 
@@ -130,9 +132,9 @@ public class ruThere {
         while (true) {
             //Todo: instructor side
             //Todo: student side
-            Timestamp date = getTimeStamp();
+            String date = getTimeStamp();
 
-            System.out.println("Date: " + date.getDay() + "/" + date.getMonth() + "/" + date.getYear());
+            System.out.println("Date: " + date);
             // Build a new authorized API client service.
             Sheets service = getSheetsService();
 
@@ -144,44 +146,40 @@ public class ruThere {
             //gets the spreadsheet data for dateCol and studentCount
             //gets all the cells into a List<List<Object>>
             cells = getCells(classId, service, spreadsheetId, kb);
-            Object cell = getCell(cells);
+            Object cell = getCell(0,0, cells);
 
             String dateAndStuRange = "F1:F2"; //locations for dateCol and studentCount
             String valueRenderOption = "UNFORMATTED_VALUE";
             Sheets.Spreadsheets.Values.Get request =
                     service.spreadsheets().values().get(spreadsheetId, dateAndStuRange);
-            ValueRange response = request.execute();
-            studentCount = getStudentCount(response);
-            dateCol = getDateCol(response);
-
+            //ValueRange response = request.execute();
             //generate new date ToDo: automatically parse and validate
-            putValue(dateCol,0, (date.getDay() + "/" + date.getMonth() + "/" + date.getYear()), date, service, spreadsheetId);
-            putValue(dateCol,1, "Yes", date, service, spreadsheetId);
+            //System.out.println(findCurrentDate(cells));
+            putKey(classId, service, spreadsheetId, kb);
+            //putValue(dateCol,0, date, service, spreadsheetId);
+            //putValue(dateCol,1, date, service, spreadsheetId);
         }
     }
 
-    public static Timestamp getTimeStamp(){
-        Timestamp date = new Timestamp(System.currentTimeMillis());
-        date.setYear(date.getYear() + 1900);
-        date.setMonth(date.getMonth() +1);
-        return date;
+    public static String getTimeStamp(){
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+        Date currentDay = new Date();
+        return dateFormat.format(currentDay);
         /**
          * @return Timestamp object of current date and formats the year to current year
          */
     }
 
 
-    public static int getStudentCount(ValueRange response){
-        int value = Integer.parseInt(response.getValues().get(0).toArray()[0].toString());
-        return value;
+    public static int getStudentCount(List<List<Object>> cells){
+        return Integer.parseInt(getCell(0,5, cells).toString());
     }
     /**
      * @return current student count
      */
 
-    public static int getDateCol(ValueRange response){
-        int value = Integer.parseInt(response.getValues().get(1).toArray()[0].toString());
-        return value;
+    public static int getDateCount(List<List<Object>> cells){
+        return Integer.parseInt(getCell(1,5, cells).toString());
     }
     /**
      * @return current column in use for the date
@@ -217,8 +215,21 @@ public class ruThere {
         }
         return spreadsheetId;
     }
+    public static Object getCell(int row, int col, List<List<Object>> cells){
+        return cells.get(row).get(col);
+    }
+    /**
+     * gets the cell value
+     */
 
-    public static void putValue(int col, int row, String value, Timestamp date, Sheets service, String spreadsheetId)throws IOException{
+    public static String findCurrentDate(List<List<Object>> cells) {
+        int dateCount = getDateCount(cells);
+        System.out.println(dateCount);
+        String curDate = getCell(0, dateCount, cells).toString();
+        return curDate;
+    }
+
+    public static void putValue(int col, int row, String value, Sheets service, String spreadsheetId)throws IOException{
         List<Request> requests = new ArrayList<>();
 
         // Create values object
@@ -262,6 +273,7 @@ public class ruThere {
                 return response.getValues();
             } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
                 System.out.println("invalid classId");
+                e.printStackTrace();
             }
         }
     }
@@ -269,10 +281,44 @@ public class ruThere {
      * gets and returns a List<List<Object>> with all the cells in the specific sheetId and classId
      */
 
-    public static Object getCell(int row, int col, List<List<Object>> cell){
-        return cell.get(row).get(col);
+
+
+    public static void putKey(String classId, Sheets service, String spreadsheetId, Scanner kb) throws IOException {
+        List<List<Object>> cells = getCells(classId, service, spreadsheetId, kb);
+        int studentCount = getStudentCount(cells);
+        String currentDate = findCurrentDate(cells);
+        String newCode = getCode() + "";
+        int dateCount = getDateCount(cells);
+        System.out.println("RESULTS");
+        System.out.println(currentDate);
+        System.out.println(studentCount);
+        System.out.println(dateCount);
+
+        if (currentDate.equals(getTimeStamp())) {
+            putValue(dateCount+1,studentCount+1, newCode, service, spreadsheetId);
+        } else {
+            int newDateCount = dateCount+1;
+            putValue(newDateCount, 0, currentDate, service, spreadsheetId);
+            putValue(newDateCount+1,studentCount+1, newCode, service, spreadsheetId);
+
+        }
     }
-    /**
-     * gets the cell value
-     */
+
+}
+class googleSheet {
+    String sheetId;
+    String classId;
+    int studentCount;
+    int dateCount;
+
+    public googleSheet(String sheetId, String classId) {
+        this.sheetId = sheetId;
+        this.classId = classId;
+    }
+    public String getSheetId() {
+        return sheetId;
+    }
+    public String getClassId() {
+        return classId;
+    }
 }
