@@ -1,3 +1,5 @@
+package ruTherePackage;
+
 // This is ruThere. This program is used as a demo to demostrate an update to a fix cell location on a Google sheet
 // Todos: Please be sure to update the location of your client_secret.json file & the Googlesheet id before running your program.
 // Date: 6/1/18
@@ -73,7 +75,7 @@ public class ruThere {
     public static Credential authorize() throws IOException {
         // Load client secrets.
         // Todo: Change this text to the location where your client_secret.json resided
-        InputStream in = new FileInputStream(System.getProperty("user.home") + "/IdeaProjects/ruThere/src/main/resources/client_secret.json");
+        InputStream in = new FileInputStream("X:\\Schigh\\School Work Folder\\CSC 131\\Project Workspace\\Github\\ruThere\\src\\main\\resources\\client_secret.json");
             // ruThere.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
@@ -104,7 +106,7 @@ public class ruThere {
                 .build();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void updateSheet() throws IOException {
         //Scanner
         Scanner kb = new Scanner(System.in);
 
@@ -125,9 +127,9 @@ public class ruThere {
         int studentCount = 0; //count for amount of students
         String classId = ""; //defines the sheet for the class
         List<List<Object>> cells = null; //data from the classId
-
+        boolean end = true;
         //Start of Program
-        while (true) {
+        while (end) {
             //Todo: instructor side
             //Todo: student side
             Timestamp date = getTimeStamp();
@@ -144,7 +146,8 @@ public class ruThere {
             //gets the spreadsheet data for dateCol and studentCount
             //gets all the cells into a List<List<Object>>
             cells = getCells(classId, service, spreadsheetId, kb);
-            Object cell = getCell(cells);
+            Object cell = getCell(25,0,cells);
+            System.out.println("Cell: " + cell);
 
             String dateAndStuRange = "F1:F2"; //locations for dateCol and studentCount
             String valueRenderOption = "UNFORMATTED_VALUE";
@@ -157,6 +160,8 @@ public class ruThere {
             //generate new date ToDo: automatically parse and validate
             putValue(dateCol,0, (date.getDay() + "/" + date.getMonth() + "/" + date.getYear()), date, service, spreadsheetId);
             putValue(dateCol,1, "Yes", date, service, spreadsheetId);
+            end = false;
+            
         }
     }
 
@@ -269,8 +274,8 @@ public class ruThere {
      * gets and returns a List<List<Object>> with all the cells in the specific sheetId and classId
      */
 
-    public static Object getCell(int row, int col, List<List<Object>> cell){
-        return cell.get(row).get(col);
+    public static Object getCell(int row, int col, List<List<Object>> cells) {
+        return cells.get(row).get(col);
     }
     /**
      * gets the cell value
