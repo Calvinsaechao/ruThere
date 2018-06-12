@@ -137,26 +137,6 @@ public class ruThere {
         }
     }
 
-    public static String getSpreadsheetId(Scanner kb, Sheets service) throws IOException{
-        String range = "F1:F2";
-        String valueRenderOption = "FORMATTED_VALUE";
-        String spreadsheetId = "";
-        boolean start = true;
-        while(start) {
-            try {
-                System.out.print("Enter your spreadsheet ID--> ");
-                spreadsheetId = kb.nextLine();
-                Sheets.Spreadsheets.Values.Get request =
-                        service.spreadsheets().values().get(spreadsheetId, range);
-                ValueRange response = request.execute();
-                start = false;
-            } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
-                System.out.println("Invalid Sheet ID");
-            }
-        }
-        return spreadsheetId;
-    }
-
     public static List<List<Object>> getCells(Scanner kb, Sheets service, String spreadsheetId) throws IOException{
         while(true) {
             try {
@@ -179,6 +159,26 @@ public class ruThere {
         return sheet.getCells().get(row).get(col);
     }
 
+    public static String getSpreadsheetId(Scanner kb, Sheets service) throws IOException{
+        String range = "F1:F2";
+        String valueRenderOption = "FORMATTED_VALUE";
+        String spreadsheetId = "";
+        boolean start = true;
+        while(start) {
+            try {
+                System.out.print("Enter your spreadsheet ID--> ");
+                spreadsheetId = kb.nextLine();
+                Sheets.Spreadsheets.Values.Get request =
+                        service.spreadsheets().values().get(spreadsheetId, range);
+                ValueRange response = request.execute();
+                start = false;
+            } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
+                System.out.println("Invalid Sheet ID");
+            }
+        }
+        return spreadsheetId;
+    }
+
     public static String getTimeStamp(){
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
         Date currentDay = new Date();
@@ -188,16 +188,16 @@ public class ruThere {
          */
     }
 
+    public static String findCurrentDate(int dateCount, googleSheet sheet) {
+        return getCell(0, dateCount, sheet).toString();
+    }
+
     public static int generateNewCode() {
         int randomnum = (int)(Math.random()*9000)+1000;
         System.out.println("today's passcode is:");
         System.out.print(randomnum);
         return randomnum;
 
-    }
-
-    public static String findCurrentDate(int dateCount, googleSheet sheet) {
-        return getCell(0, dateCount, sheet).toString();
     }
 
     public static void putValue(int row, int col, String value, googleSheet sheet)throws IOException {
@@ -260,6 +260,7 @@ class googleSheet {
         this.dateCount    = Integer.parseInt(cells.get(1).get(5).toString());
         this.service = service;
     }
+
     public String getSheetId() {
         return sheetId;
     }
