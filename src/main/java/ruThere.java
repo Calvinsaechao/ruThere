@@ -127,7 +127,7 @@ public class ruThere {
             googleSheet mySheet = new googleSheet(spreadsheetId, cells, service);
 
 
-            System.out.println(validateKey("89624", mySheet));
+            System.out.println(findStudentRow("218907300", mySheet));
             //putValue(dateCol,0, date, service, spreadsheetId);
             //putValue(dateCol,1, date, service, spreadsheetId);
             break;
@@ -232,10 +232,29 @@ public class ruThere {
         }
     }
 
-    public static boolean validateKey(String key, googleSheet sheet) {
-        System.out.println(sheet.getCells().get(sheet.getStudentCount()+1).get(sheet.getDateCount()).toString());
+    public static boolean keyIsValid(String key, googleSheet sheet) {
         return key.equals(sheet.getCells().get(sheet.getStudentCount()+1).get(sheet.getDateCount()).toString());
     }
+
+    public static int findStudentRow(String studentId, googleSheet sheet) {
+        for( int index = 1; index < sheet.getStudentCount(); index++) {
+            System.out.println(sheet.getCells().get(index).get(2).toString());
+            if (studentId.equals(sheet.getCells().get(index).get(2).toString())) {
+                return index;
+            }
+        }
+        return -1;
+    }
+
+    public static void validateStudent(String studentId, String key, googleSheet sheet) {
+        if(keyIsValid(key, sheet)) {
+
+            System.out.println("Your attendance was taken successfully!");
+        } else {
+            System.out.println("Your key did not match!");
+        }
+    }
+
 
 }
 
