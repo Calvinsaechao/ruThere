@@ -97,7 +97,7 @@ public class ruThere {
 
     public static void main(String[] args) throws IOException {
         //Scanner
-        Scanner input = new Scanner(System.in);
+        Scanner kb = new Scanner(System.in);
 
         //Todo: create this demo (For Paul)
         //Json File Demo
@@ -121,48 +121,23 @@ public class ruThere {
             //Todo: student side
             // Build a new authorized API client service.
             Sheets service = getSheetsService();
-            String spreadsheetId = getSpreadsheetId(input, service);
-            cells = getCells(service, spreadsheetId, input);
+            String spreadsheetId = getSpreadsheetId(kb, service);
+            cells = getCells(kb, service, spreadsheetId);
 
-            googleSheet newSheet = new googleSheet(spreadsheetId, cells, service);
+            googleSheet mySheet = new googleSheet(spreadsheetId, cells, service);
 
             //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
             //ValueRange response = request.execute();
             //generate new date ToDo: automatically parse and validate
             //System.out.println(findCurrentDate(cells));
-            putKey(service, spreadsheetId, cells);
+            putKey(mySheet);
             //putValue(dateCol,0, date, service, spreadsheetId);
             //putValue(dateCol,1, date, service, spreadsheetId);
             break;
         }
     }
 
-    public static String getTimeStamp(){
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
-        Date currentDay = new Date();
-        return dateFormat.format(currentDay);
-        /**
-         * @return Timestamp object of current date and formats the year to current year
-         */
-    }
-
-    public static int getStudentCount(List<List<Object>> cells){
-        return Integer.parseInt(getCell(0,5, cells).toString());
-    }
-
-    public static int getDateCount(List<List<Object>> cells){
-        return Integer.parseInt(getCell(1,5, cells).toString());
-    }
-
-    public static int getCode() {
-        int randomnum = (int)(Math.random()*9000)+1000;
-        System.out.println("today's passcode is:");
-        System.out.print(randomnum);
-        return randomnum;
-
-    }
-
-    public static String getSpreadsheetId(Scanner kb, googleSheet sheet) throws IOException{
+    public static String getSpreadsheetId(Scanner kb, Sheets service) throws IOException{
         String range = "F1:F2";
         String valueRenderOption = "FORMATTED_VALUE";
         String spreadsheetId = "";
@@ -182,15 +157,50 @@ public class ruThere {
         return spreadsheetId;
     }
 
-    public static Object getCell(int row, int col, List<List<Object>> cells){
-        return cells.get(row).get(col);
+    public static List<List<Object>> getCells(Scanner kb, Sheets service, String spreadsheetId) throws IOException{
+        while(true) {
+            try {
+                String classId;
+                System.out.print("Enter the classId--> ");
+                classId = kb.nextLine();
+                String dateAndStuRange = classId; //locations for dateCol and studentCount
+                String valueRenderOption = "UNFORMATTED_VALUE";
+                Sheets.Spreadsheets.Values.Get request =
+                        service.spreadsheets().values().get(spreadsheetId, dateAndStuRange);
+                ValueRange response = request.execute();
+                return response.getValues();
+            } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
+                System.out.println("invalid classId");
+            }
+        }
     }
 
-    public static String findCurrentDate(int dateCount, List<List<Object>> cells) {
-        return getCell(0, dateCount, cells).toString();
+    public static Object getCell(int row, int col, googleSheet sheet){
+        return sheet.getCells().get(row).get(col);
     }
 
-    public static void putValue(int row, int col, String value, Sheets service, String spreadsheetId)throws IOException{
+    public static String getTimeStamp(){
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+        Date currentDay = new Date();
+        return dateFormat.format(currentDay);
+        /**
+         * @return Timestamp object of current date and formats the year to current year
+         */
+    }
+
+    public static int generateNewCode() {
+        int randomnum = (int)(Math.random()*9000)+1000;
+        System.out.println("today's passcode is:");
+        System.out.print(randomnum);
+        return randomnum;
+
+    }
+
+    public static String findCurrentDate(int dateCount, googleSheet sheet) {
+        return getCell(0, dateCount, sheet).toString();
+    }
+
+    public static void putValue(int row, int col, String value, googleSheet sheet)throws IOException {
         List<Request> requests = new ArrayList<>();
 
         // Create values object
@@ -214,41 +224,23 @@ public class ruThere {
 
         BatchUpdateSpreadsheetRequest batchUpdateRequest = new BatchUpdateSpreadsheetRequest()
                 .setRequests(requests);
-        service.spreadsheets().batchUpdate(spreadsheetId, batchUpdateRequest)
+        sheet.getService().spreadsheets().batchUpdate(sheet.getSheetId(), batchUpdateRequest)
                 .execute();
     }
 
-    public static List<List<Object>> getCells(Sheets service, String spreadsheetId, Scanner kb)throws IOException{
-        while(true) {
-            try {
-                String classId;
-                System.out.print("Enter the classId--> ");
-                classId = kb.nextLine();
-                String dateAndStuRange = classId; //locations for dateCol and studentCount
-                Sheets.Spreadsheets.Values.Get request =
-                        service.spreadsheets().values().get(spreadsheetId, dateAndStuRange);
-                ValueRange response = request.execute();
-                return response.getValues();
-            } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
-                System.out.println("invalid classId");
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void putKey(Sheets service, String spreadsheetId, List<List<Object>> cells) throws IOException {
-        int studentCount = getStudentCount(cells);
-        int dateCount = getDateCount(cells);
-        String lastDatePosted = findCurrentDate(dateCount, cells);
-        String newCode = getCode() + "";
+    public static void putKey(googleSheet sheet) throws IOException {
+        int studentCount = sheet.getStudentCount();
+        int dateCount = sheet.getDateCount();
+        String lastDatePosted = findCurrentDate(dateCount, sheet);
+        String newCode = generateNewCode() + "";
 
         if (lastDatePosted.equals(getTimeStamp())) {
-            putValue(dateCount,studentCount+1, newCode, service, spreadsheetId);
+            putValue(studentCount+1, dateCount, newCode, sheet);
         } else {
             int newDateCount = dateCount+1;
-            putValue(newDateCount, 0, getTimeStamp(), service, spreadsheetId);
-            putValue(newDateCount,studentCount+1, newCode, service, spreadsheetId);
-            putValue(5,1, newDateCount+"" ,service,spreadsheetId);
+            putValue(0, newDateCount, getTimeStamp(), sheet);
+            putValue(0, studentCount+1, newCode, sheet);
+            putValue(1,5, newDateCount+"" , sheet);
 
         }
     }
@@ -265,7 +257,7 @@ class googleSheet {
         this.sheetId = sheetId;
         this.cells   = cells;
         this.studentCount = Integer.parseInt(cells.get(0).get(5).toString());
-        this.dateCount    = Integer.parseInt(cells.get(0).get(6).toString());
+        this.dateCount    = Integer.parseInt(cells.get(1).get(5).toString());
         this.service = service;
     }
     public String getSheetId() {
