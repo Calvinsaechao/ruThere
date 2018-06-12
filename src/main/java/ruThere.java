@@ -248,7 +248,6 @@ public class ruThere {
 
     public static void validateStudent(String studentId, String key, googleSheet sheet) {
         if(keyIsValid(key, sheet)) {
-
             System.out.println("Your attendance was taken successfully!");
         } else {
             System.out.println("Your key did not match!");
