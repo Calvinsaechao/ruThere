@@ -75,7 +75,7 @@ public class ruThere {
     public static Credential authorize() throws IOException {
         // Load client secrets.
         // Todo: Change this text to the location where your client_secret.json resided
-        InputStream in = new FileInputStream("X:\\Schigh\\School Work Folder\\CSC 131\\Project Workspace\\Github\\ruThere\\src\\main\\resources\\client_secret.json");
+        InputStream in = new FileInputStream(System.getProperty("user.home") + "/IdeaProjects/ruThere/src/main/resources/client_secret.json");
             // ruThere.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
