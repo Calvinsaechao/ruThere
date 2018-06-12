@@ -101,7 +101,8 @@ public class ruThere {
 
         //Todo: create this demo (For Paul)
         //Json File Demo
-        /**Json file shall store
+        /**
+         * Json file shall store
          * -Email of the instructor (use this as identifier)
          * -Password
          * -Class Name
@@ -127,7 +128,7 @@ public class ruThere {
             googleSheet mySheet = new googleSheet(spreadsheetId, cells, service);
 
 
-            System.out.println(findStudentRow("218907300", mySheet));
+            validateStudent("2189007300", "89624", "here", mySheet);
             //putValue(dateCol,0, date, service, spreadsheetId);
             //putValue(dateCol,1, date, service, spreadsheetId);
             break;
@@ -237,8 +238,7 @@ public class ruThere {
     }
 
     public static int findStudentRow(String studentId, googleSheet sheet) {
-        for( int index = 1; index < sheet.getStudentCount(); index++) {
-            System.out.println(sheet.getCells().get(index).get(2).toString());
+        for(int index = 1; index < sheet.getStudentCount()-1; index++) {
             if (studentId.equals(sheet.getCells().get(index).get(2).toString())) {
                 return index;
             }
@@ -246,13 +246,17 @@ public class ruThere {
         return -1;
     }
 
-    public static void validateStudent(String studentId, String key, googleSheet sheet) {
-        if(keyIsValid(key, sheet)) {
+    public static void validateStudent(String studentId, String key, String message, googleSheet sheet) throws IOException {
+        int studentIndex = findStudentRow(studentId, sheet);
+        if(keyIsValid(key, sheet) && studentIndex != -1) {
+            putValue(studentIndex, sheet.getDateCount(), message, sheet);
             System.out.println("Your attendance was taken successfully!");
         } else {
-            System.out.println("Your key did not match!");
+
+            System.out.println("Your key did not match\nor\nyour student id is not in the class");
         }
     }
+
 
 
 }
@@ -292,8 +296,8 @@ class googleSheet {
     public String getCurrentDate() {
         return currentDate;
     }
-    public void updateCells() {
-        this.cells = getCells();
+    public void updateCells(List<List<Object>> newCells) {
+        this.cells = newCells;
     }
 
 }
