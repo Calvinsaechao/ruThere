@@ -125,11 +125,12 @@ public class ruThere {
         //Todo: instructor side
         //Todo: student side
         // Build a new authorized API client service.
+        googleSheet mySheet = new googleSheet();
         Sheets service = getSheetsService();
         String spreadsheetId = getSpreadsheetId(kb, service);
-        cells = getCells(kb, service, spreadsheetId);
+        cells = getCells(kb, service, spreadsheetId, mySheet);
 
-        googleSheet mySheet = new googleSheet(spreadsheetId, cells, service);
+        mySheet = new googleSheet(spreadsheetId, cells, service);
         generateKey(mySheet);
 
 
@@ -142,23 +143,21 @@ public class ruThere {
             String message = kb.nextLine();
 
             //update the info of the key
-            mySheet.updateCells(getCells(kb,mySheet.getService(),mySheet.getSheetId()));
+            mySheet.updateCells(getCells(kb,mySheet.getService(),mySheet.getSheetId(), mySheet));
 
             validateStudent(studentId, key, message, mySheet);
         }
     }
 
-    public static List<List<Object>> getCells(Scanner kb, Sheets service, String spreadsheetId) throws IOException {
+    public static List<List<Object>> getCells(Scanner kb, Sheets service, String spreadsheetId, googleSheet sheet) throws IOException {
         while(true) {
             try {
-                String classId;
                 System.out.print("Enter the classId--> ");
-                classId = kb.nextLine();
-                String dateAndStuRange = classId; //locations for dateCol and studentCount
-                String valueRenderOption = "UNFORMATTED_VALUE";
+                sheet.setClassName(kb.nextLine());
                 Sheets.Spreadsheets.Values.Get request =
-                        service.spreadsheets().values().get(spreadsheetId, dateAndStuRange);
+                        service.spreadsheets().values().get(spreadsheetId, sheet.getClassName());
                 ValueRange response = request.execute();
+                System.out.println(response.getValues());
                 return response.getValues();
             } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
                 System.out.println("invalid classId");
@@ -221,7 +220,6 @@ public class ruThere {
                         .setRows(Arrays.asList(
                                 new RowData().setValues(values)))
                         .setFields("userEnteredValue,userEnteredFormat.backgroundColor")));
-
         BatchUpdateSpreadsheetRequest batchUpdateRequest = new BatchUpdateSpreadsheetRequest()
                 .setRequests(requests);
         sheet.getService().spreadsheets().batchUpdate(sheet.getSheetId(), batchUpdateRequest)
@@ -278,6 +276,7 @@ public class ruThere {
 class googleSheet {
     private String sheetId;
     private String currentDate;
+    private String className;
     private List<List<Object>> cells;
     private int studentCount;
     private int dateCount;
@@ -286,14 +285,22 @@ class googleSheet {
     public googleSheet(String sheetId, List<List<Object>> cells, Sheets service) {
         this.sheetId = sheetId;
         this.cells   = cells;
+        this.className = className;
         this.studentCount = Integer.parseInt(cells.get(0).get(5).toString());
         this.dateCount    = Integer.parseInt(cells.get(1).get(5).toString());
         this.service = service;
         this.currentDate = cells.get(0).get(dateCount).toString();
     }
+    public googleSheet() {}
 
     public String getSheetId() {
         return sheetId;
+    }
+    public String getCurrentDate() {
+        return currentDate;
+    }
+    public String getClassName() {
+        return className;
     }
     public List<List<Object>> getCells() {
         return cells;
@@ -307,11 +314,10 @@ class googleSheet {
     public Sheets getService() {
         return service;
     }
-    public String getCurrentDate() {
-        return currentDate;
-    }
     public void updateCells(List<List<Object>> newCells) {
         this.cells = newCells;
     }
-
+    public void setClassName(String className) {
+        this.className = className;
+    }
 }
