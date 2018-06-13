@@ -132,7 +132,19 @@ public class ruThere {
 
         mySheet = new googleSheet(spreadsheetId, cells, service);
         generateKey(mySheet);
+        mySheet.updateCells(getCells(kb, service, spreadsheetId, mySheet));
 
+        Spreadsheet meta_data = mySheet.getService().spreadsheets().get(mySheet.getSheetId()).execute();
+        for(int i = 0;;i++) {
+            try {
+                System.out.println(meta_data.getSheets().get(i));
+            }
+            catch (IndexOutOfBoundsException e){
+                break;
+            }
+        }
+
+        System.out.println("DATA SHOULD BE ABOVE");
 
         while(true) {
             System.out.println("Type your student id ");
@@ -143,7 +155,7 @@ public class ruThere {
             String message = kb.nextLine();
 
             //update the info of the key
-            mySheet.updateCells(getCells(kb,mySheet.getService(),mySheet.getSheetId(), mySheet));
+
 
             validateStudent(studentId, key, message, mySheet);
         }
@@ -157,12 +169,23 @@ public class ruThere {
                 Sheets.Spreadsheets.Values.Get request =
                         service.spreadsheets().values().get(spreadsheetId, sheet.getClassName());
                 ValueRange response = request.execute();
-                System.out.println(response.getValues());
                 return response.getValues();
             } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
                 System.out.println("invalid classId");
             }
         }
+    }
+
+    public static List<List<Object>> getCells(googleSheet mySheet) throws IOException {
+            try {
+                Sheets.Spreadsheets.Values.Get request = mySheet.getService().spreadsheets().
+                        values().get(mySheet.getSheetId(), mySheet.getClassName());
+                ValueRange response = request.execute();
+                return response.getValues();
+            } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
+                System.out.println("invalid classId");
+                return null;
+            }
     }
 
     public static String getSpreadsheetId(Scanner kb, Sheets service) throws IOException{
@@ -199,7 +222,7 @@ public class ruThere {
         return randomnum;
     }
 
-    public static void putValue(int row, int col, String value, googleSheet sheet)throws IOException {
+    public static void putValue(int row, int col, String value, googleSheet sheet) throws IOException {
         List<Request> requests = new ArrayList<>();
 
         // Create values object
@@ -209,21 +232,20 @@ public class ruThere {
         values.add(new CellData()
                 .setUserEnteredValue(new ExtendedValue()
                         .setStringValue(value)));
-
         // Prepare request with proper row and column and its value
         requests.add(new Request()
                 .setUpdateCells(new UpdateCellsRequest()
                         .setStart(new GridCoordinate()
-                                .setSheetId(0)
+                                .setSheetId(888778848)
                                 .setRowIndex(row)     // set the row to row 0
                                 .setColumnIndex(col)) // set the new column 6 to value 5/28/2018 at row 0
                         .setRows(Arrays.asList(
                                 new RowData().setValues(values)))
                         .setFields("userEnteredValue,userEnteredFormat.backgroundColor")));
-        BatchUpdateSpreadsheetRequest batchUpdateRequest = new BatchUpdateSpreadsheetRequest()
-                .setRequests(requests);
-        sheet.getService().spreadsheets().batchUpdate(sheet.getSheetId(), batchUpdateRequest)
-                .execute();
+        BatchUpdateSpreadsheetRequest batchUpdateRequest = new BatchUpdateSpreadsheetRequest().setRequests(requests);
+        sheet.getService().spreadsheets().batchUpdate(sheet.getSheetId(), batchUpdateRequest).execute();
+
+
     }
 
     public static void generateKey(googleSheet sheet) throws IOException {
