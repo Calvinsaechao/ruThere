@@ -121,9 +121,6 @@ public class ruThere {
     }
 
     public static void main(String[] args) throws IOException {
-        //Scanner
-
-
         //Todo: create this demo (For Paul)
         //Json File Demo
         //
@@ -146,39 +143,24 @@ public class ruThere {
         Sheets service = getSheetsService();
         String spreadsheetId = getSpreadsheetId(kb, service);
         googleSheet mySheet = new googleSheet(spreadsheetId, service);
-
+        //1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0
         System.out.println(mySheet.getsheetAddresses());
         System.out.println(mySheet.getsheetNames());
 
         mySheet.generateKeyFor("sheet1");
-        //generateKey(mySheet);
-        //mySheet.updateCells(getCells(kb, service, spreadsheetId, mySheet));
 
-
-        //Todo: create a drop down menu and design the data manipulator
-
-
-
-        /*
         while(true) {
             System.out.println("Type your student id ");
             String studentId = kb.nextLine();
             System.out.println("Type today's key ");
             String key = kb.nextLine();
-            System.out.println("Type [Here] or answer to today's question");
+            System.out.println("Type [Here] or answer today's question");
             String message = kb.nextLine();
 
-            //update the info of the key
-
-
-            validateStudent(studentId, key, message, mySheet);
+            mySheet.validateStudent(studentId,"sheet1",key,message);
         }
-        */
+
     }
-
-
-
-
 }
 
 class googleSheet {
@@ -228,19 +210,6 @@ class googleSheet {
 
     }
 
-    private List<List<Object>> getGridOf(String sheetName) throws IOException {
-        if(sheetDoesExist(sheetName)) {
-            Sheets.Spreadsheets.Values.Get request =
-                    service.spreadsheets()
-                            .values()
-                            .get(this.getSheetId(), sheetName);
-            ValueRange response = request.execute();
-            return response.getValues();
-        } else {
-            return null;
-        }
-    }
-
     public void generateKeyFor(String sheetName) throws IOException {
         if(sheetDoesExist(sheetName)) {
             //get the grid of a given sheet
@@ -268,6 +237,31 @@ class googleSheet {
             System.out.println("Could not generate key");
         }
 
+    }
+
+    public void validateStudent(String studentId, String sheetName, String key, String message) throws IOException{
+        if(sheetDoesExist(sheetName)) {
+            List<List<Object>> grid = getGridOf(sheetName);
+            int studentRowIndex = findStudentRow(studentId, grid);
+            if(keyIsValid(key, grid) && studentRowIndex != -1) {
+                int dateCount = Integer.parseInt(grid.get(1).get(5).toString());
+                enterValueInto(studentRowIndex, dateCount, message, sheetName);
+            } else {
+                System.out.println("Either your key was invalid");
+                System.out.println("\nor your id not in the section");
+            }
+        } else {
+            System.out.println("The section you typed does not exist");
+        }
+
+    }
+
+    public ArrayList<Integer> getsheetAddresses() {
+        return sheetAddresses;
+    }
+
+    public ArrayList<String> getsheetNames() {
+        return sheetNames;
     }
 
     private void enterValueInto(int row, int col, String value, String sheetName) throws IOException {
@@ -304,20 +298,12 @@ class googleSheet {
         return -1;
     }
 
-    private boolean sheetDoesExist(String sheetName) {
-        for(int i = 0; i < sheetNames.size(); i++) {
-            if(sheetName.toLowerCase().equals(this.sheetNames.get(i))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean keyIsValid(String key, List<List<Object>> grid) throws IOException {
-        int studentCount = Integer.parseInt(grid.get(0).get(5).toString());
-        int dateCount = Integer.parseInt(grid.get(1).get(5).toString());
-        return key.equals(grid.get(studentCount+1).get(dateCount));
-
+    private int generateNewCode() {
+        Random rand = new Random();
+        int randomnum = rand.nextInt(9998) + 1;
+        System.out.println("today's passcode is:");
+        System.out.print(randomnum + "\n");
+        return randomnum;
     }
 
     private int findStudentRow(String studentId, List<List<Object>> grid) throws IOException {
@@ -333,28 +319,26 @@ class googleSheet {
 
     }
 
-    public void validateStudent(String studentId, String sheetName, String key, String message) throws IOException{
-        if(sheetDoesExist(sheetName)) {
-            List<List<Object>> grid = getGridOf(sheetName);
-            int studentRowIndex = findStudentRow(studentId, grid);
-            if(keyIsValid(key, grid) && studentRowIndex != -1) {
-                int dateCount = Integer.parseInt(grid.get(1).get(5).toString());
-                enterValueInto(studentRowIndex, dateCount, message, sheetName);
-            } else {
-                System.out.println("Either your key was invalid");
-                System.out.println("\nor your id not in the section");
+    private boolean sheetDoesExist(String sheetName) {
+        for(int i = 0; i < sheetNames.size(); i++) {
+            if(sheetName.toLowerCase().equals(this.sheetNames.get(i))) {
+                return true;
             }
         }
-        System.out.println("The section you typed does not exist");
-
+        return false;
     }
 
-    public String getSheetId() {
-        return sheetId;
-    }
+    private boolean keyIsValid(String key, List<List<Object>> grid) throws IOException {
+        int studentCount = Integer.parseInt(grid.get(0).get(5).toString());
+        int dateCount = Integer.parseInt(grid.get(1).get(5).toString());
+        if(key.equals(grid.get(studentCount+1).get(dateCount))) {
+            System.out.println("The key was validated successfully");
+            return true;
+        } else {
+            System.out.println("The key was not validated successfully");
+            return false;
+        }
 
-    public Sheets getService() {
-        return service;
     }
 
     private  String getTimeStamp() {
@@ -363,20 +347,20 @@ class googleSheet {
         return dateFormat.format(currentDay);
     }
 
-    public ArrayList<Integer> getsheetAddresses() {
-        return sheetAddresses;
+    private List<List<Object>> getGridOf(String sheetName) throws IOException {
+        if(sheetDoesExist(sheetName)) {
+            Sheets.Spreadsheets.Values.Get request =
+                    service.spreadsheets()
+                            .values()
+                            .get(this.sheetId, sheetName);
+            ValueRange response = request.execute();
+            return response.getValues();
+        } else {
+            return null
+        }
     }
 
-    public ArrayList<String> getsheetNames() {
-        return sheetNames;
-    }
 
-    private int generateNewCode() {
-        Random rand = new Random();
-        int randomnum = rand.nextInt(9998) + 1;
-        System.out.println("today's passcode is:");
-        System.out.print(randomnum + "\n");
-        return randomnum;
-    }
+
 
 }
