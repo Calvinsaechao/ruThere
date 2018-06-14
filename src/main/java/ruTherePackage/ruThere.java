@@ -327,9 +327,8 @@ class googleSheet {
 
     private int generateNewCode() {
         Random rand = new Random();
-        int randomnum = rand.nextInt(9998) + 1;
-        System.out.println("today's passcode is:");
-        System.out.print(randomnum + "\n");
+        int randomnum = rand.nextInt(9000) + 1000;
+        System.out.println("today's passcode is: " + randomnum);
         return randomnum;
     }
 
