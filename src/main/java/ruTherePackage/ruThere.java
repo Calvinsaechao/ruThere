@@ -2,12 +2,14 @@ package ruTherePackage;
 // This is ruThere. This program is used as a demo to demostrate an update to a fix cell location on a Google sheet
 // Todos: Please be sure to update the location of your client_secret.json file & the Googlesheet id before running your program.
 // Date: 6/1/18
+import Exceptions.*;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.EmptyContent;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.json.JsonFactory;
@@ -16,7 +18,6 @@ import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.*;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.model.ValueRange;
-import org.mortbay.util.IO;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -139,29 +140,55 @@ public class ruThere {
         //Todo: student side
         // Build a new authorized API client service.
 
+
         Scanner kb = new Scanner(System.in);
         Sheets service = getSheetsService();
+
+        //for testing purposes
+        System.out.println("\nspreadsheetId: 1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0");
+
         String spreadsheetId = getSpreadsheetId(kb, service);
         googleSheet mySheet = new googleSheet(spreadsheetId, service);
         //1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0
-        System.out.println(mySheet.getsheetAddresses());
-        System.out.println(mySheet.getsheetNames());
-
         mySheet.generateKeyFor("sheet1");
 
-        while(true) {
-            System.out.println("Type your student id ");
-            String studentId = kb.nextLine();
-            System.out.println("Type today's key ");
-            String key = kb.nextLine();
-            System.out.println("Type [Here] or answer today's question");
-            String message = kb.nextLine();
 
+        //Constraints
+        int maxAnswerLength = 140;
+        int minimumAnswerLength = 1;
+
+        while(true) {
+            System.out.print("Type your student id--> ");
+            String studentId = kb.nextLine();
+            System.out.print("Type today's key--> ");
+            String key = kb.nextLine();
+            String message = validateMessage(kb, minimumAnswerLength, maxAnswerLength);
             mySheet.validateStudent(studentId,"sheet1",key,message);
         }
 
     }
+    public static String validateMessage(Scanner kb, int minimumAnswerLength, int maxAnswerLength) {
+        String message = "Here";
+        for(;;) {
+            try {
+                System.out.print("Type [Here] or answer today's question--> ");
+                message = kb.nextLine();
+                if (message.length() < minimumAnswerLength){
+                    throw new EmptyAnswerException();
+                }
+                if (message.length() > maxAnswerLength){
+                    throw new ExceededAnswerLengthException();
+                }
+                return message;
+            } catch (EmptyAnswerException e) {
+                System.out.println("Invalid Answer! Minimum character length is: " + minimumAnswerLength);
+            } catch (ExceededAnswerLengthException e){
+                System.out.println("Invalid Answer! Max character length exceeded: " + message.length() + "/" + maxAnswerLength);
+            }
+        }
+    }
 }
+
 
 class googleSheet {
     private String sheetId;
@@ -309,7 +336,7 @@ class googleSheet {
     private int findStudentRow(String studentId, List<List<Object>> grid) throws IOException {
         int studentCount = Integer.parseInt(grid.get(0).get(5).toString());
 
-        for(int index = 1; index < studentCount; index++) {
+        for(int index = 1; index < studentCount+1; index++) {
             if (studentId.trim().equals(grid.get(index).get(2).toString().trim())) {
                 System.out.println("Found student row at " + index);
                 return index;
@@ -356,9 +383,10 @@ class googleSheet {
             ValueRange response = request.execute();
             return response.getValues();
         } else {
-            return null
+            return null;
         }
     }
+
 
 
 
