@@ -149,6 +149,8 @@ public class ruThere {
 
         System.out.println(mySheet.getsheetAddresses());
         System.out.println(mySheet.getsheetNames());
+
+        mySheet.generateKeyFor("sheet1");
         //generateKey(mySheet);
         //mySheet.updateCells(getCells(kb, service, spreadsheetId, mySheet));
 
@@ -175,32 +177,6 @@ public class ruThere {
     }
 
 
-
-    public static boolean keyIsValid(String key, googleSheet sheet) {
-        return key.trim().equals(sheet.getCells().get(sheet.getStudentCount()+1).get(sheet.getDateCount()).toString().trim());
-    }
-
-    public static int findStudentRow(String studentId, googleSheet sheet) {
-        for(int index = 1; index < sheet.getStudentCount()-1; index++) {
-            if (studentId.trim().equals(sheet.getCells().get(index).get(2).toString().trim())) {
-                System.out.println("Found student row at " + index);
-                return index;
-            }
-        }
-        return -1;
-    }
-
-    public static void validateStudent(String studentId, String key, String message, googleSheet sheet) throws IOException {
-        int studentIndex = findStudentRow(studentId, sheet);
-        if(keyIsValid(key, sheet) && studentIndex != -1) {
-            putValue(studentIndex, sheet.getDateCount(), message, sheet);
-            System.out.println("Your attendance was taken successfully!");
-        } else {
-
-            System.out.println("Your key did not match\nor\nyour student id is not in the class");
-        }
-    }
-    */
 
 
 }
@@ -337,17 +313,14 @@ class googleSheet {
         return false;
     }
 
-    private boolean keyIsValid(String key, String sheetName) throws IOException {
-
-        List<List<Object>> grid = getGridOf(sheetName);
+    private boolean keyIsValid(String key, List<List<Object>> grid) throws IOException {
         int studentCount = Integer.parseInt(grid.get(0).get(5).toString());
         int dateCount = Integer.parseInt(grid.get(1).get(5).toString());
         return key.equals(grid.get(studentCount+1).get(dateCount));
 
     }
 
-    private int findStudentRow(String studentId, String sheetName) throws IOException {
-        List<List<Object>> grid = getGridOf(sheetName);
+    private int findStudentRow(String studentId, List<List<Object>> grid) throws IOException {
         int studentCount = Integer.parseInt(grid.get(0).get(5).toString());
 
         for(int index = 1; index < studentCount; index++) {
@@ -360,15 +333,20 @@ class googleSheet {
 
     }
 
-    public void validateStudent(String studentId, String sheetName, String key) throws IOException{
+    public void validateStudent(String studentId, String sheetName, String key, String message) throws IOException{
         if(sheetDoesExist(sheetName)) {
-            int studentRowIndex = findStudentRow(studentId, sheetName);
-            if(keyIsValid(key, sheetName) && studentRowIndex != -1) {
-
+            List<List<Object>> grid = getGridOf(sheetName);
+            int studentRowIndex = findStudentRow(studentId, grid);
+            if(keyIsValid(key, grid) && studentRowIndex != -1) {
+                int dateCount = Integer.parseInt(grid.get(1).get(5).toString());
+                enterValueInto(studentRowIndex, dateCount, message, sheetName);
+            } else {
+                System.out.println("Either your key was invalid");
+                System.out.println("\nor your id not in the section");
             }
-        } else {
-
         }
+        System.out.println("The section you typed does not exist");
+
     }
 
     public String getSheetId() {
