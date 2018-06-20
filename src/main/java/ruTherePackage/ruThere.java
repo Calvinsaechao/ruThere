@@ -143,6 +143,7 @@ public class ruThere {
         }
 
     }
+
     public static String validateMessage(Scanner kb) {
         int maxAnswerLength = 140;
         int minimumAnswerLength = 1;
