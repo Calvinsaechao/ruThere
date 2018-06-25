@@ -33,7 +33,7 @@
 				</nav>
 			</div>
 		</header>
-
+		<section id="background">
 		<div class="container">
 		<aside id="sidebar">
 			<div class="dark">
@@ -52,13 +52,14 @@
 					</div>
 					<button class="button_1" type="submit">Submit</button>
 				</form>
-				<form action="logout" method="post">
-				<button class="button_1" type="submit">Logout</button>
+				<form action="logout" method="post" class="quote">
+					<button class="button_2" type="submit">Logout</button>
 				</form>
 			</div>
 		</aside>
 		</div>
-	
+		</section>
+		
 		<footer>
 			<p>Web Design by ruThere, Copyright &copy; 2018</p>
 		</footer>

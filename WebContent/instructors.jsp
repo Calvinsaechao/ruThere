@@ -14,6 +14,7 @@
 	</head>
 	
 	<body>
+		<!-- Navigation Bar -->
 		<% 
 		if(session.getAttribute("email") != null)
 		{
@@ -46,10 +47,10 @@
 							<input type="email" placeholder="Enter your Google Email" name="email">
 						</div>
 						<div>
-							<label>Password</label><br>
+							<label>Password</label>
 							<input type="password" placeholder="Enter your password" name="password">
-						</div>
 						<button class="button_1" type="submit">Submit</button>
+						</div>
 					</form>
 				</div>
 			</aside>

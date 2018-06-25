@@ -34,20 +34,21 @@
 			</div>
 		</header>
 		
+		<section id="background">
 		<div class="container">
 			<aside id="sidebar">
 				<div class="dark">
-				<h3>Instructor's Page</h3>
-				<form action="success" method="post" class="quote">
-					<div>
-						<label>Code has been generated!</label><br>
-					</div>
-					<button class="button_1" type="submit">Return</button>
-				</form>
+					<h3>Instructor's Page</h3>
+					<form action="success" method="post" class="quote">
+						<div>
+							<label>Code has been generated!</label><br>
+						</div>
+						<button class="button_1" type="submit">Return</button>
+					</form>
 				</div>
 			</aside>
-		
 		</div>
+		</section>
 	
 		<footer>
 			<p>Web Design by ruThere, Copyright &copy; 2018</p>
