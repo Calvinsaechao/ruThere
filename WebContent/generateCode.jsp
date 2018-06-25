@@ -52,7 +52,7 @@
       <div class="container">
         <aside id="sidebar">
           <div class="dark">
-            <h3>Instructor's Page</h3>
+            <h3>Instructor</h3>
             <form action="generate" method="post" class="quote">
 			  <div>
   							<label>Fill in to generate code.</label><br>
