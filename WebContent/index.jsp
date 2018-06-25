@@ -10,11 +10,10 @@
     <style>
     	<%@ include file="css/style.css"%>
     </style>
-    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <header>
-      <div class="container-fluid">
+      <div class="container">
         <div id="branding">
           <h1><span class="highlight">ru</span> THERE?</h1>
         </div>
