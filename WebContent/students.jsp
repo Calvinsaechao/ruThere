@@ -37,15 +37,19 @@
 						<form action="ruThereServlet" method="post" class="quote">
 							<div>
 								<label>SID</label><br>
-								<input type="text" placeholder="Enter your student ID">
+								<input name="sid" type="text" placeholder="Enter your student ID">
+							</div>
+							<div>
+								<label>Email</label><br>
+								<input name="email" type="text" placeholder="Enter your Instructor's email">
 							</div>
 							<div>
 								<label>Key</label><br>
-								<input type="password" placeholder="Enter today's key provided by the professor">
+								<input name="password" type="password" placeholder="Enter today's key provided by the professor">
 							</div>
 							<div>
 								<label>Quiz Answer</label><br>
-								<input type="text" placeholder="Enter your answer to today's quiz. (up to 140 characters)">
+								<input name="answer" type="text" placeholder="Enter your answer to today's quiz. (up to 140 characters)">
 							</div>
 							<button class="button_1" type="submit">Submit</button>
 						</form>

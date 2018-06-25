@@ -123,6 +123,15 @@ public class ruThere {
         GoogleSheets mySheet = new GoogleSheets(spreadsheetId, service);
         mySheet.generateKeyFor(mySheet.getSheetNames().get(0));
     }
+    
+    public static void submitAttendance(String studentId, String email, String key, String answer) throws IOException {
+    	JSONObject professorInfo = (JSONObject) getEmailInfo("username@gmail.com");
+        //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
+        String spreadsheetId = (String) professorInfo.get("sheetId");
+        Sheets service = getSheetsService();
+        GoogleSheets mySheet = new GoogleSheets(spreadsheetId, service);
+        mySheet.generateKeyFor(mySheet.getSheetNames().get(0));
+    }
 
     //public static File getFile(String fileName) {
     //    return new File(ruThere.class.getClassLoader().getResource(fileName).getFile());
