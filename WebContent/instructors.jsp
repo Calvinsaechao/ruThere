@@ -36,6 +36,7 @@
 			</div>
 		</header>
 
+		<!--  Background  -->
 		<section id="background">
 		<div class="container">
 			<aside id="sidebar">
