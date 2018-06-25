@@ -52,7 +52,7 @@
       <div class="container">
         <aside id="sidebar">
           <div class="dark">
-            <h3>Instructor's Login</h3>
+            <h3>Login</h3>
             <form action="login" method="post" class="quote">
 			  <div>
   							<label>Google Email</label><br>
