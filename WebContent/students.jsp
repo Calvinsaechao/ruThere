@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <meta name="description" content="Affordable and professional web design">
-	  <meta name="keywords" content="web design, affordable web design, professional web design">
-  	<meta name="author" content="Brad Traversy">
+    <meta name="description" content="A simple web design by ruThere">
+	<meta name="keywords" content="web design, ruThere">
+  	<meta name="author" content="ruThere">
     <title>ruThere? | Students</title>
     <style>
     	<%@ include file="css/style.css"%>
@@ -27,51 +27,15 @@
         </nav>
       </div>
     </header>
-<!--
-    <section id="newsletter">
-      <div class="container">
-        <h1>Subscribe To Our Newsletter</h1>
-        <form>
-          <input type="email" placeholder="Enter Email...">
-          <button type="submit" class="button_1">Subscribe</button>
-        </form>
-      </div>
-    </section>
--->
 	  	  
     <section id="container-background3">
       <div class="container-background3">
       </div>
     </section>
 
-<!--
-    <section id="main">
--->
 	<section id="showcase3">
       <div class="container">
-	  <!--
-        <article id="main-col">
 
-          <h1 class="page-title">Services</h1>
-          <ul id="services">
-            <li>
-              <h3>Website Design</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies at, vulputate id lorem. Nulla facilisi.</p>
-						  <p>Pricing: $1,000 - $3,000</p>
-            </li>
-            <li>
-              <h3>Website Maintenance</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies at, vulputate id lorem. Nulla facilisi.</p>
-						  <p>Pricing: $250 per month</p>
-            </li>
-            <li>
-              <h3>Website Hosting</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies at, vulputate id lorem. Nulla facilisi.</p>
-						  <p>Pricing: $25 per month</p>
-            </li>
-          </ul>
-        </article>
-		-->
         <aside id="sidebar">
           <div class="dark">
             <h3>Get Attendance</h3>
@@ -95,11 +59,9 @@
 
 	  </div>
 	</section>		
-<!--
-    </section>
--->
+
     <footer>
-      <p>Web Deisgn by ruThere, Copyright &copy; 2018</p>
+      <p>Web Design by ruThere, Copyright &copy; 2018</p>
     </footer>
   </body>
 </html>

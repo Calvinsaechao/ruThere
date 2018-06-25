@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <meta name="description" content="Affordable and professional web design">
-	  <meta name="keywords" content="web design, affordable web design, professional web design">
-  	<meta name="author" content="Brad Traversy">
+    <meta name="description" content="A simple web design by ruThere">
+	<meta name="keywords" content="web design, ruThere">
+  	<meta name="author" content="ruThere">
     <title>ruThere? | Welcome</title>
     <style>
     	<%@ include file="css/style.css"%>
@@ -14,7 +14,7 @@
   </head>
   <body>
     <header>
-      <div class="container">
+      <div class="container-fluid">
         <div id="branding">
           <h1><span class="highlight">ru</span> THERE?</h1>
         </div>
@@ -33,45 +33,55 @@
       </div>
     </section>
 	  
-    <section id="showcase">
-      <div class="container">
-        <h1>ruThere?</h1>
-        <p>ruReally There? How do you know that when you submit your information to ruThere, that you are really there? Maybe where you are is inaccurately perceived by your senses that you've trusted so much your whole life.</p>
-      </div>
-    </section>
-<!--
-    <section id="newsletter">
-      <div class="container">
-        <h1>Subscribe To Our Newsletter</h1>
-        <form>
-          <input type="email" placeholder="Enter Email...">
-          <button type="submit" class="button_1">Subscribe</button>
-        </form>
-      </div>
-    </section>
+    <div id="map"></div>
+    <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+      var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
+        });
+        infoWindow = new google.maps.InfoWindow;
 
-    <section id="boxes">
-      <div class="container">
-        <div class="box">
-          <img src="./images/logo_html.png">
-          <h3>HTML5 Markup</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies</p>
-        </div>
-        <div class="box">
-          <img src="./images/logo_css.png">
-          <h3>CSS3 Styling</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies</p>
-        </div>
-        <div class="box">
-          <img src="./images/logo_brush.png">
-          <h3>Graphic Design</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies</p>
-        </div>
-      </div>
-    </section>
--->
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApqj7Gt5LVuWrJayjkyLnMke8gSeBWlkA&callback=initMap">
+    </script>
+
     <footer>
-      <p>Web Deisgn by ruThere, Copyright &copy; 2018</p>
+      <p>Web Design by ruThere, Copyright &copy; 2018</p>
     </footer>
   </body>
 </html>
