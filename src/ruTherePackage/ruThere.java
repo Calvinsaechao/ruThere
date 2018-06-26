@@ -1,5 +1,5 @@
 package ruTherePackage;
-// This is ruThere. This program is used as a demo to demostrate an update to a fix cell location on a Google sheet
+// This is ruThere. This program is used as a demo to demonstrate an update to a fix cell location on a Google sheet
 // Todos: Please be sure to update the location of your client_secret.json file & the GoogleSheets id before running your program.
 // Date: 6/1/18
 import com.google.api.client.auth.oauth2.Credential;
@@ -38,14 +38,30 @@ import org.json.simple.parser.*;
 
 public class ruThere {
 
+	private static final String databaseLocation = 	//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json";
+													"C:/Users/Dennis/IdeaProjects/ruThere/src/resources/database.json";
+													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/database.json";
+
+													
+	private static final String clientSecretLocation = //"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json";
+													"C:/Users/Dennis/IdeaProjects/ruThere/src/resources/client_secret.json";
+													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/client_secret.json";
+	
+	private static final String credentialsLocation = //"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													 "C:/Users/Dennis/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
     /** Application name. */
     private static final String APPLICATION_NAME = "ruThere";
 
     /** Directory to store user credentials for this application. */
+<<<<<<< HEAD
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
 "/Users/kistanod/Projects/Java/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json");
     		//"/Users/Calvin/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json");
     		//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json");
+=======
+    private static final java.io.File DATA_STORE_DIR = new java.io.File(credentialsLocation);
+>>>>>>> refs/remotes/origin/master
 
     /** Global instance of the {@link FileDataStoreFactory}. */
     private static FileDataStoreFactory DATA_STORE_FACTORY;
@@ -78,10 +94,16 @@ public class ruThere {
     public static Credential authorize() throws IOException {
         // Load client secrets.
         // Todo: Change this text to the location where your client_secret.json resided
+<<<<<<< HEAD
         InputStream in = new FileInputStream(
         		"/Users/kistanod/Projects/Java/ruThere/src/resources/client_secret.json");
         		//"/Users/Calvin/IdeaProjects/ruThere/src/resources/client_secret.json");
         		//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json");
+=======
+        InputStream in = new FileInputStream(clientSecretLocation);
+        		
+        		
+>>>>>>> refs/remotes/origin/master
             // ruThere.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
@@ -159,9 +181,14 @@ public class ruThere {
         try {
             JSONObject database = (JSONObject) new JSONParser().parse(
                     new FileReader(
+<<<<<<< HEAD
                             new File("/Users/kistanod/Projects/Java/ruThere/src/resources/database.json")));
                             		//"/Users/Calvin/IdeaProjects/ruThere/src/resources/database.json")));
                             		//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json")));
+=======
+                            new File(databaseLocation)));
+                            		
+>>>>>>> refs/remotes/origin/master
             Map emails = ((Map)database.get("emails"));
             Iterator<Map.Entry> iterator = emails.entrySet().iterator();
             while (iterator.hasNext()) {
