@@ -25,7 +25,7 @@ public class Login extends HttpServlet {
 			if(ruThere.validatePassword(professorInfo, password)) { //if password matches email
 				HttpSession session = request.getSession(); //login
 				session.setAttribute("email", email);
-				response.sendRedirect("generateCode.jsp");
+				response.sendRedirect("generateCode.jsp");//redirect 
 			}
 			else response.sendRedirect("instructors.jsp");
 		}

@@ -12,13 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
+
 public class generateCode extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		
+		//Todo: add a parameter here and in JSP
 		HttpSession session = request.getSession();
-		ruThere.generateCode((String)session.getAttribute("email"));
-		response.sendRedirect("generateSuccess.jsp");
+		try {
+			ruThere.generateCode((String)session.getAttribute("email"), (String)request.getParameter("sheetName"));
+			response.sendRedirect("generateSuccess.jsp");
+		} catch (Exception e) {
+		}
+		
+
+		
 	}
 }

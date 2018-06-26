@@ -19,7 +19,7 @@ import com.google.api.services.sheets.v4.model.Sheet;
 import com.google.api.services.sheets.v4.model.UpdateCellsRequest;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
-class GoogleSheets {
+public class GoogleSheets {
     private String sheetId;
     private ArrayList<String> sheetNames;
     private ArrayList<Integer> sheetAddresses;
@@ -53,7 +53,7 @@ class GoogleSheets {
         }
     }
 
-    public  void generateKeyFor(String sheetName) throws IOException {
+    public void generateKeyFor(String sheetName) throws IOException {
         if(sheetDoesExist(sheetName)) {
             //get the grid of a given sheet
             List<List<Object>> grid = getGridOf(sheetName);

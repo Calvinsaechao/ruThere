@@ -37,20 +37,15 @@
 		<div class="container">
 		<aside id="sidebar">
 			<div class="dark">
-				<h3>Instructor</h3>
+				<h3>Welcome!</h3>
 				<form action="generate" method="post" class="quote">
 					<div>
-						<label>Fill in to generate code.</label><br>
+						<label>Type the name of the section</label><br>
 					</div>
 					<div>
-						<label>Choose a class</label>
-						<select id="sheetId">
-							<option value="default">default</option>
-							<option>test1</option>
-							<option>test2</option>
-						</select>
+					<input type="sheetName" placeholder="Enter the name of the section" name="sheetName">
 					</div>
-					<button class="button_1" type="submit">Submit</button>
+					<button class="button_1" type="submit">Generate code</button>
 				</form>
 				<form action="logout" method="post" class="quote">
 					<button class="button_2" type="submit">Logout</button>
