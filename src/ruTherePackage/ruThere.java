@@ -43,6 +43,7 @@ public class ruThere {
 
     /** Directory to store user credentials for this application. */
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
+    		//"/Users/Calvin/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json");
     		"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json");
 
     /** Global instance of the {@link FileDataStoreFactory}. */
@@ -76,7 +77,8 @@ public class ruThere {
     public static Credential authorize() throws IOException {
         // Load client secrets.
         // Todo: Change this text to the location where your client_secret.json resided
-        InputStream in = new FileInputStream("D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json");
+        InputStream in = new FileInputStream(//"/Users/Calvin/IdeaProjects/ruThere/src/resources/client_secret.json");
+        		"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json");
             // ruThere.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
@@ -115,8 +117,8 @@ public class ruThere {
         }
     }
     //public static void main(String[] args) throws IOException {
-    public static void updateSheets() throws IOException {
-    	JSONObject professorInfo = (JSONObject) getEmailInfo("username@gmail.com");
+    public static void generateCode(String email) throws IOException {
+    	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
         //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
         String spreadsheetId = (String) professorInfo.get("sheetId");
         Sheets service = getSheetsService();
@@ -124,13 +126,26 @@ public class ruThere {
         mySheet.generateKeyFor(mySheet.getSheetNames().get(0));
     }
     
-    public static void submitAttendance(String studentId, String email, String key, String answer) throws IOException {
-    	JSONObject professorInfo = (JSONObject) getEmailInfo("username@gmail.com");
+    public static JSONObject validateEmail(String email) throws IOException {
+    	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
+    	if(professorInfo != null) return professorInfo;
+    	else return null;
+    }
+    
+    public static boolean validatePassword(JSONObject professorInfo, String password) throws IOException {
+    	System.out.println((String)professorInfo.get("password"));
+    	if(((String)professorInfo.get("password")).equalsIgnoreCase(password)) {
+    		return true;
+    	}
+    	else return false;
+    }
+    
+    public static void submitAttendance(String studentId, String email, String key) throws IOException {
+    	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
         //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
         String spreadsheetId = (String) professorInfo.get("sheetId");
         Sheets service = getSheetsService();
         GoogleSheets mySheet = new GoogleSheets(spreadsheetId, service);
-        mySheet.generateKeyFor(mySheet.getSheetNames().get(0));
     }
 
     //public static File getFile(String fileName) {
@@ -141,7 +156,8 @@ public class ruThere {
         try {
             JSONObject database = (JSONObject) new JSONParser().parse(
                     new FileReader(
-                            new File("D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json")));
+                            new File(//"/Users/Calvin/IdeaProjects/ruThere/src/resources/database.json")));
+                            		"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json")));
             Map emails = ((Map)database.get("emails"));
             Iterator<Map.Entry> iterator = emails.entrySet().iterator();
             while (iterator.hasNext()) {

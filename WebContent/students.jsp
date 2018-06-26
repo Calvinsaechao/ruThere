@@ -36,7 +36,7 @@
 				<aside id="sidebar">
 					<div class="dark">
 						<h3>Get Attendance</h3>
-						<form action="ruThereServlet" method="post" class="quote">
+						<form action="ruThere" method="post" class="quote">
 							<div>
 								<label>SID</label><br>
 								<input name="sid" type="text" placeholder="Enter your student ID">

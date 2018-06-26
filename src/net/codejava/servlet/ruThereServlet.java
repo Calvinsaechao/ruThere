@@ -37,7 +37,7 @@ public class ruThereServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		response.sendRedirect("login");
+		response.sendRedirect("students.jsp");
 	}
 
 	private String parseInt(String paramPass) {
