@@ -9,6 +9,7 @@
 		<title>ruThere? | Students</title>
 		<style>
 			<%@ include file="css/style.css"%>
+			button {text-align:center;}
 		</style>
 		<link rel="stylesheet" href="css/style.css">
 	</head>
@@ -38,6 +39,14 @@
 						<h3>Get Attendance</h3>
 						<form action="validateStudent" method="post" class="quote">
 							<div>
+								<label>Instructor email</label><br>
+								<input name="email" type="text" placeholder="Type your instructor email">
+							</div>
+							<div>
+								<label>Section Name</label><br>
+								<input name="sheetName" type="text" placeholder="Enter your section name">
+							</div>
+							<div>
 								<label>SID</label><br>
 								<input name="sid" type="text" placeholder="Enter your student ID">
 							</div>
@@ -49,6 +58,7 @@
 								<label>Quiz Answer</label><br>
 								<input name="answer" type="text" placeholder="Enter your answer to today's quiz. (up to 140 characters)">
 							</div>
+							
 							<button class="button_1" type="submit">Submit</button>
 						</form>
 					</div>

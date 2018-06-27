@@ -17,14 +17,15 @@ public class validateStudent extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		
-		String studentId = request.getParameter("sid");
-		String key = request.getParameter("password");
-		String answer = request.getParameter("answer");
+		String email = request.getParameter("email").trim();
+		String sheetName = request.getParameter("sheetName").trim();
+		String studentId = request.getParameter("sid").trim();
+		String key = request.getParameter("password").trim();
+		String answer = request.getParameter("answer").trim();
 		//Todo: add a parameter here and in JSP
 		HttpSession session = request.getSession();
 		try {
-			ruThere.submitAttendance(studentId, key, answer);
+			ruThere.submitAttendance(email, sheetName, studentId, key, answer);
 			response.sendRedirect("validationSuccess.jsp");
 		} catch (Exception e) {
 			response.sendRedirect("validationFailure.jsp");
