@@ -177,5 +177,9 @@ public class GoogleSheets {
         ValueRange response = request.execute();
         return response.getValues();
     }
+    
+    public ArrayList<String> getSheetNames() {
+        return sheetNames;
+    }
 }
 

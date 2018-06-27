@@ -39,26 +39,26 @@ import org.json.simple.parser.*;
 public class ruThere {
 
 	private static final String databaseLocation = 	//"/Users/kistanod/Projects/Java/ruThere/src/resources/database.json";
-													"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json";
+													//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json";
 													//"C:/Users/Dennis/IdeaProjects/ruThere/src/resources/database.json";
-													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/database.json";
+													"/Users/Calvin/IdeaProjects/ruThere/src/resources/database.json";
 
 					
 	
 	
 	
 	private static final String clientSecretLocation = //"/Users/kistanod/Projects/Java/ruThere/src/resources/client_secret.json";
-													"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json";
+													//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json";
 													//"C:/Users/Dennis/IdeaProjects/ruThere/src/resources/client_secret.json";
-													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/client_secret.json";
+													"/Users/Calvin/IdeaProjects/ruThere/src/resources/client_secret.json";
 	
 	
 	
 	
 	private static final String credentialsLocation = //"/Users/kistanod/Projects/Java/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
-													  "D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json";
-													 //"C:/Users/Dennis/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
-													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													  //"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													  //"C:/Users/Dennis/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													  "/Users/Calvin/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
     /** Application name. */
     private static final String APPLICATION_NAME = "ruThere";
 
@@ -141,13 +141,21 @@ public class ruThere {
         }
     }
     //public static void main(String[] args) throws IOException {
-    public static void generateCode(String email, String sheetName) throws IOException {
+    public static boolean generateCode(String email, String sheetName) throws IOException {
+    	
     	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
         //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
         String spreadsheetId = (String) professorInfo.get("sheetId");
         Sheets service = getSheetsService();
         GoogleSheets mySheet = new GoogleSheets(spreadsheetId, service);
-        mySheet.generateKeyFor(sheetName);
+        ArrayList<String> sheetNames = mySheet.getSheetNames();
+        for(int i = 0; i < sheetNames.size(); i++) {
+        	if (sheetName.equalsIgnoreCase(sheetNames.get(i))) {
+        		mySheet.generateKeyFor(sheetName);
+        		return true;
+        	}
+        }
+        return false;
     }
     
     public static JSONObject validateEmail(String email) throws IOException {

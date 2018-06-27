@@ -20,11 +20,10 @@ public class generateCode extends HttpServlet {
 		
 		//Todo: add a parameter here and in JSP
 		HttpSession session = request.getSession();
-		try {
-			ruThere.generateCode((String)session.getAttribute("email"), (String)request.getParameter("sheetName"));
+		if(ruThere.generateCode((String)session.getAttribute("email"), (String)request.getParameter("sheetName"))) {
 			response.sendRedirect("generateSuccess.jsp");
-		} catch (Exception e) {
 		}
+		else response.sendRedirect("generateFailure.jsp");
 		
 
 		
