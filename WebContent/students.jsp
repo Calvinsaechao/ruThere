@@ -40,23 +40,23 @@
 						<form action="validateStudent" method="post" class="quote">
 							<div>
 								<label>Instructor email</label><br>
-								<input name="email" type="text" placeholder="Type your instructor email">
+								<input name="email" type="email" placeholder="Type your instructor's email">
 							</div>
 							<div>
 								<label>Section Name</label><br>
 								<input name="sheetName" type="text" placeholder="Enter your section name">
 							</div>
 							<div>
-								<label>SID</label><br>
-								<input name="sid" type="text" placeholder="Enter your student ID">
+								<label>Student ID</label><br>
+								<input name="sid" type="text" placeholder="9 digits exactly" required minLength="9" maxLength="9">
 							</div>
 							<div>
 								<label>Key</label><br>
-								<input name="password" type="password" placeholder="Enter today's key provided by the professor">
+								<input name="password" type="text" placeholder="4 digits provided by professor" required minLength="4" maxLength="4">
 							</div>
 							<div>
-								<label>Quiz Answer</label><br>
-								<input name="answer" type="text" placeholder="Enter your answer to today's quiz. (up to 140 characters)">
+								<label>Your message</label><br>
+								<input name="answer" type="text" placeholder="Up to 140 characters" required maxLength="140">
 							</div>
 							
 							<button class="button_1" type="submit">Submit</button>
