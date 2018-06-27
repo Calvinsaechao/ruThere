@@ -1,0 +1,295 @@
+html,body
+{
+	min-height: 100%;
+	font: 15px/1.5 Arial, Helvetica,sans-serif;
+	padding:0;
+	margin:0 auto;
+	background-color:#757575;
+}
+ 
+/* Set the size of the div element that contains the google map */
+#map 
+{
+	position: fixed;
+	height: 800px;/* The height is 400 pixels */
+	width: 100%;/* The width is the width of the web page */
+} 
+
+/* Global Containers*/
+.container 
+{
+	width: 80%;
+	margin: 0 auto;
+	overflow:hidden;
+}
+
+ul 
+{
+	margin:0;
+	padding:0;
+}
+
+/* Submit Buttons */
+.button_1
+{
+	float: inherit;
+	height:38px;
+	background:#e8491d;
+	border:0;
+	padding-left: 20px;
+	padding-right:20px;
+	color:#ffffff;
+	margin-top:10px;
+}
+
+/* Logout Button */
+.button_2
+{
+	float: right;
+	height:23px;
+	background:#e8491d;
+	border:0;
+	padding-left: 10px;
+	padding-right:10px;
+	color:#ffffff;
+}
+
+/* Forms Background Box */
+.dark
+{
+	top: 200px;
+	padding: 50px;
+	background:#35424a;
+	color:#ffffff;
+	width: 60%;
+	margin: 0 auto;
+}
+
+/* Header */
+header
+{
+	z-index: 1000;
+	position: fixed;
+	margin-bottom: 100px;
+	background:#35424a;
+	color:#ffffff;
+	padding-top:30px;
+	min-height: 70px;
+	border-bottom:#e8491d 3px solid;;
+	width: 100%;
+	top: 0;
+}
+
+header a
+{
+	color:#ffffff;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size:16px;
+}
+
+header li
+{
+	float:left;
+	display:inline;
+	padding: 0 20px 0 20px;
+}
+
+header #branding
+{
+	float:left;
+}
+
+header #branding h1
+{
+	margin:0;
+}
+
+header nav
+{
+	float:right;
+	margin-top:10px;
+}
+
+header .highlight, header .current a
+{
+	color:#e8491d;
+	font-weight:bold;
+}
+
+header a:hover
+{
+	color:#C7C7C7;
+	text-decoration: underline;
+}
+
+/* Background Images */
+/* instructors.html */
+#background
+{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background:url('../images/students.jpg') no-repeat;
+	background-attachment: center;	
+	text-align: center;
+	color:#ECECEC;
+	padding-top: 15%;
+	margin: 0 auto;
+}
+
+/* Boxes */
+#boxes
+{
+	margin-top:20px;
+}
+
+#boxes .box
+{
+	float:left;
+	text-align: center;
+	width:30%;
+	padding:10px;
+}
+
+#boxes .box img
+{
+	width:90px;
+}
+
+/* Form Boxes */
+/* Instructors Form Box */
+aside#sidebar
+{
+	left: 100px;
+	float: none;
+	width: 50%;
+	margin: 0 auto;
+	padding-bottom: 50px;
+	text-align: left;
+}
+
+aside#sidebar .quote input, aside#sidebar .quote textarea
+{
+	width:100%;
+	padding:5px;
+}
+
+/* Services */
+ul#services li
+{
+	list-style: none;
+	padding:20px;
+	border: #cccccc solid 1px;
+	margin-bottom:5px;
+	background:#e6e6e6;
+}
+
+/* Footer */
+footer 
+{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	padding: 20px;
+	color:#ffffff;
+	background-color:#e8491d;
+	text-align: center;
+}
+
+/* Media Queries */
+/* Tablet Size */
+@media(max-width: 768px)
+{
+	header #branding,
+	header nav,
+	header nav li,
+	
+	/*#newsletter h1,
+	#newsletter form,*/
+	#boxes .box,
+	article#main-col
+	{
+		float:none;
+		text-align: center;
+		width: 100%;
+		margin: 0 0 0 0;
+	}
+	aside#sidebar
+	{
+		float:none;
+		text-align: center;
+		width: 100%;
+		margin: 0 0 0 0;
+		padding-top: 200px;
+	}
+	header
+	{
+		padding-bottom:20px;
+	}
+}
+
+/* Mobile Phones */
+@media (max-width: 576px) 
+{
+	header #branding,
+	header nav,
+	header nav li,
+	
+	/*#newsletter h1,
+	#newsletter form,*/
+	#boxes .box,
+	article#main-col
+	{
+		float:none;
+		text-align: center;
+		width: 100%;
+		margin: 0 0 0 -10px;
+		padding: 0 10px 0 10px;
+	}
+	aside#sidebar
+	{
+		float:none;
+		text-align: center;
+		width: 100%;
+		margin: 0 0 0 0;
+		padding-top: 150px;
+	}
+	header
+	{
+		padding-bottom:20px;
+	}
+	.dark
+	{
+		top: 200px;
+		padding: 50px;
+		background:#35424a;
+		color:#ffffff;
+		width: 60%;
+		margin: 0 auto;
+		padding-bottom:100px;
+		padding-top:25px;
+	}
+	.button_1
+	{
+		float: left;
+		height:38px;
+		background:#e8491d;
+		border:0;
+		padding-left: 20px;
+		padding-right:20px;
+		color:#ffffff;
+		margin-top:10px;
+	}
+	.button_2
+	{
+		float: right;
+		height:23px;
+		background:#e8491d;
+		border:0;
+		padding-left: 10px;
+		padding-right:10px;
+		color:#ffffff;
+		margin-top:60px;
+	}
+}

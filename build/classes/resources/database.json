@@ -1,0 +1,12 @@
+{
+	"emails": {
+		"username@gmail.com": {
+			"password": "password",
+			"sheetId": "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0"
+		},
+		"username2@gmail.com": {
+			"password": "password",
+			"sheetId": "1m_KFoACldbDieFbcj0VQpqNjfWxunhe-cUsCLB1mCVU"
+		}
+	}
+}
