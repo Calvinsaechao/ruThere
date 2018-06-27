@@ -14,13 +14,6 @@
 	</head>
 	
 	<body>
-		<!-- Navigation Bar -->
-		<% 
-		if(session.getAttribute("email") != null)
-		{
-			response.sendRedirect("generateCode.jsp");
-		}
-		%>
 		<header>
 			<div class="container">
 				<div id="branding">
@@ -29,35 +22,29 @@
 				<nav>
 					<ul>
 						<li><a href="index.jsp">Home</a></li>
-						<li class="current"><a href="instructors.jsp">Instructors</a></li>
-						<li><a href="students.jsp">Students</a></li>
+						<li><a href="instructors.jsp">Instructors</a></li>
+						<li class="current"><a href="students.jsp">Students</a></li>
 					</ul>
 				</nav>
 			</div>
 		</header>
-
-		<!--  Background  -->
+		
 		<section id="background">
 		<div class="container">
 			<aside id="sidebar">
 				<div class="dark">
-					<h3>Login</h3>
-					<form action="login" method="post" class="quote">
+					<h3>Student's page</h3>
+					<form action="success" method="post" class="quote">
 						<div>
-							<label>Google Email</label><br>
-							<input type="email" placeholder="Enter your Google Email" name="email">
+							<label>The information did not match. Please try again</label><br>
 						</div>
-						<div>
-							<label>Password</label>
-							<input type="password" placeholder="Enter your password" name="password">
-						<button class="button_1" type="submit">Submit</button>
-						</div>
+						<center><button class="button_1" type="submit">Try again</button></center>
 					</form>
 				</div>
 			</aside>
 		</div>
 		</section>
-
+	
 		<footer>
 			<p>Web Design by ruThere, Copyright &copy; 2018</p>
 		</footer>

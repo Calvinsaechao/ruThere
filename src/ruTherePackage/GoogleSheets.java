@@ -1,12 +1,8 @@
 package ruTherePackage;
 
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest;
@@ -90,23 +86,13 @@ public class GoogleSheets {
                 int dateCount = Integer.parseInt(grid.get(1).get(5).toString());
                 enterValueInto(studentRowIndex, dateCount, message, sheetName);
             } else {
-                System.out.println("Either your key was invalid");
-                System.out.println("\nor your id not in the section");
+            	throw new IOException("Opps");
             }
         } else {
             System.out.println("The section you typed does not exist");
         }
 
     }
-
-    public ArrayList<Integer> getSheetAddresses() {
-        return sheetAddresses;
-    }
-
-    public ArrayList<String> getSheetNames() {
-        return sheetNames;
-    }
-
     private void enterValueInto(int row, int col, String value, String sheetName) throws IOException {
 
         int sheetAddress = getSheetAddress(sheetName);

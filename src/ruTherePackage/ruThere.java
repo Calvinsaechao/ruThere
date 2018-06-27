@@ -38,14 +38,33 @@ import org.json.simple.parser.*;
 
 public class ruThere {
 
+	private static final String databaseLocation = 	"/Users/kistanod/Projects/Java/ruThere/src/resources/database.json";
+													//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json";
+													//"C:/Users/Dennis/IdeaProjects/ruThere/src/resources/database.json";
+													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/database.json";
+
+					
+	
+	
+	
+	private static final String clientSecretLocation = "/Users/kistanod/Projects/Java/ruThere/src/resources/client_secret.json";
+													//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json";
+													//"C:/Users/Dennis/IdeaProjects/ruThere/src/resources/client_secret.json";
+													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/client_secret.json";
+	
+	
+	
+	
+	private static final String credentialsLocation = "/Users/kistanod/Projects/Java/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													  //"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													 //"C:/Users/Dennis/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
     /** Application name. */
     private static final String APPLICATION_NAME = "ruThere";
 
     /** Directory to store user credentials for this application. */
-    private static final java.io.File DATA_STORE_DIR = new java.io.File(
-"/Users/kistanod/Projects/Java/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json");
-    		//"/Users/Calvin/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json");
-    		//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json");
+    
+    private static final java.io.File DATA_STORE_DIR = new java.io.File(credentialsLocation);
 
     /** Global instance of the {@link FileDataStoreFactory}. */
     private static FileDataStoreFactory DATA_STORE_FACTORY;
@@ -79,9 +98,11 @@ public class ruThere {
         // Load client secrets.
         // Todo: Change this text to the location where your client_secret.json resided
         InputStream in = new FileInputStream(
-        		"/Users/kistanod/Projects/Java/ruThere/src/resources/client_secret.json");
         		//"/Users/Calvin/IdeaProjects/ruThere/src/resources/client_secret.json");
         		//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json");
+        clientSecretLocation);
+        		
+        		
             // ruThere.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
@@ -143,12 +164,13 @@ public class ruThere {
     	else return false;
     }
     
-    public static void submitAttendance(String studentId, String email, String key) throws IOException {
-    	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
+    public static void submitAttendance(String studentId, String key, String answer) throws IOException {
+    	JSONObject professorInfo = (JSONObject) getEmailInfo("username@gmail.com");
         //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
         String spreadsheetId = (String) professorInfo.get("sheetId");
         Sheets service = getSheetsService();
         GoogleSheets mySheet = new GoogleSheets(spreadsheetId, service);
+        mySheet.validateStudent(studentId, "CSC131S1", key, answer);
     }
 
     //public static File getFile(String fileName) {
@@ -159,9 +181,10 @@ public class ruThere {
         try {
             JSONObject database = (JSONObject) new JSONParser().parse(
                     new FileReader(
-                            new File("/Users/kistanod/Projects/Java/ruThere/src/resources/database.json")));
                             		//"/Users/Calvin/IdeaProjects/ruThere/src/resources/database.json")));
                             		//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json")));
+                            new File(databaseLocation)));
+                            		
             Map emails = ((Map)database.get("emails"));
             Iterator<Map.Entry> iterator = emails.entrySet().iterator();
             while (iterator.hasNext()) {

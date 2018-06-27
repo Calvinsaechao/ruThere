@@ -5,10 +5,23 @@
     <servlet-name>ruThere</servlet-name>
     <servlet-class>net.codejava.servlet.ruThereServlet</servlet-class>
   </servlet>
+  
   <servlet-mapping>
     <servlet-name>ruThere</servlet-name>
     <url-pattern>/ruThere</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>validateStudent</servlet-name>
+    <servlet-class>net.codejava.servlet.validateStudent</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>validateStudent</servlet-name>
+    <url-pattern>/validateStudent</url-pattern>
+  </servlet-mapping>
+  
+  
   
   <servlet>
     <servlet-name>Login</servlet-name>
