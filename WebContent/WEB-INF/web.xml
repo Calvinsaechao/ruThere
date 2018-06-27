@@ -49,6 +49,14 @@
     <servlet-name>returnToInstructor</servlet-name>
     <url-pattern>/success</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>returnToStudent</servlet-name>
+    <servlet-class>net.codejava.servlet.returnToStudent</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>returnToStudent</servlet-name>
+    <url-pattern>/returnToStudent</url-pattern>
+  </servlet-mapping>
   
   <servlet>
     <servlet-name>Logout</servlet-name>

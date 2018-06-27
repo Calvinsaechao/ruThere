@@ -23,7 +23,6 @@ public class validateStudent extends HttpServlet {
 		String key = request.getParameter("password").trim();
 		String answer = request.getParameter("answer").trim();
 		//Todo: add a parameter here and in JSP
-		HttpSession session = request.getSession();
 		try {
 			ruThere.submitAttendance(email, sheetName, studentId, key, answer);
 			response.sendRedirect("validationSuccess.jsp");

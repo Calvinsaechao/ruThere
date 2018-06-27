@@ -34,7 +34,7 @@
 			<aside id="sidebar">
 				<div class="dark">
 					<h3>Student's page</h3>
-					<form action="success" method="post" class="quote">
+					<form action="returnToStudent" method="post" class="quote">
 						<div>
 							<label>Your attendance was taken successfully</label><br>
 						</div>
