@@ -78,19 +78,21 @@ public class GoogleSheets {
 
     }
 
-    public  void validateStudent(String studentId, String sheetName, String key, String message) throws IOException{
+    public  boolean validateStudent(String studentId, String sheetName, String key, String message) throws IOException{
         if(sheetDoesExist(sheetName)) {
             List<List<Object>> grid = getGridOf(sheetName);
             int studentRowIndex = findStudentRow(studentId, grid);
             if(keyIsValid(key, grid) && studentRowIndex != -1) {
                 int dateCount = Integer.parseInt(grid.get(1).get(5).toString());
                 enterValueInto(studentRowIndex, dateCount, message, sheetName);
+                return true;
             } else {
-            	throw new IOException("Opps");
+            	return false;
             }
         } else {
             System.out.println("The section you typed does not exist");
         }
+        return false;
 
     }
     private void enterValueInto(int row, int col, String value, String sheetName) throws IOException {

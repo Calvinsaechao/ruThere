@@ -39,26 +39,26 @@ import org.json.simple.parser.*;
 public class ruThere {
 
 	private static final String databaseLocation = 	//"/Users/kistanod/Projects/Java/ruThere/src/resources/database.json";
-													//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json";
+													"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json";
 													//"C:/Users/Dennis/IdeaProjects/ruThere/src/resources/database.json";
-													"/Users/Calvin/IdeaProjects/ruThere/src/resources/database.json";
+													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/database.json";
 
 					
 	
 	
 	
 	private static final String clientSecretLocation = //"/Users/kistanod/Projects/Java/ruThere/src/resources/client_secret.json";
-													//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json";
+													"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json";
 													//"C:/Users/Dennis/IdeaProjects/ruThere/src/resources/client_secret.json";
-													"/Users/Calvin/IdeaProjects/ruThere/src/resources/client_secret.json";
+													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/client_secret.json";
 	
 	
 	
 	
 	private static final String credentialsLocation = //"/Users/kistanod/Projects/Java/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
-													  //"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													  "D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json";
 													  //"C:/Users/Dennis/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
-													  "/Users/Calvin/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													  //"/Users/Calvin/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
     /** Application name. */
     private static final String APPLICATION_NAME = "ruThere";
 
@@ -172,13 +172,20 @@ public class ruThere {
     	else return false;
     }
     
-    public static void submitAttendance(String email, String sheetName, String studentId, String key, String answer) throws IOException {
+    public static boolean submitAttendance(String email, String sheetName, String studentId, String key, String answer) throws IOException {
     	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
         //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
+    	if(professorInfo == null) return false;
         String spreadsheetId = (String) professorInfo.get("sheetId");
         Sheets service = getSheetsService();
         GoogleSheets mySheet = new GoogleSheets(spreadsheetId, service);
-        mySheet.validateStudent(studentId, sheetName, key, answer);
+        ArrayList<String> sheetNames = mySheet.getSheetNames();
+        for(int i = 0; i < sheetNames.size(); i++) {
+        	if (sheetName.equalsIgnoreCase(sheetNames.get(i))) {
+        		return mySheet.validateStudent(studentId, sheetName, key, answer);
+        	}
+        }
+        return false;
     }
 
     //public static File getFile(String fileName) {

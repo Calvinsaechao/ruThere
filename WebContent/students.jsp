@@ -40,11 +40,11 @@
 						<form action="validateStudent" method="post" class="quote">
 							<div>
 								<label>Instructor email</label><br>
-								<input name="email" type="email" placeholder="Type your instructor's email">
+								<input name="email" type="email" placeholder="Type your instructor's email" required minLength="1">
 							</div>
 							<div>
 								<label>Section Name</label><br>
-								<input name="sheetName" type="text" placeholder="Enter your section name">
+								<input name="sheetName" type="text" placeholder="Enter your section name" required minLength="1">
 							</div>
 							<div>
 								<label>Student ID</label><br>
@@ -56,7 +56,7 @@
 							</div>
 							<div>
 								<label>Your message</label><br>
-								<input name="answer" type="text" placeholder="Up to 140 characters" required maxLength="140">
+								<input name="answer" type="text" placeholder="Up to 140 characters" required maxLength="140" minLength="1">
 							</div>
 							
 							<button class="button_1" type="submit">Submit</button>

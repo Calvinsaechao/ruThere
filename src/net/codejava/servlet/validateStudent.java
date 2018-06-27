@@ -23,12 +23,11 @@ public class validateStudent extends HttpServlet {
 		String key = request.getParameter("password").trim();
 		String answer = request.getParameter("answer").trim();
 		//Todo: add a parameter here and in JSP
-		try {
-			ruThere.submitAttendance(email, sheetName, studentId, key, answer);
+		
+		if(ruThere.submitAttendance(email, sheetName, studentId, key, answer)) {
 			response.sendRedirect("validationSuccess.jsp");
-		} catch (Exception e) {
-			response.sendRedirect("validationFailure.jsp");
 		}
+		else response.sendRedirect("validationFailure.jsp");
 		
 
 		
