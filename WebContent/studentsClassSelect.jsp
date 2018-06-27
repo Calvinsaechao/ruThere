@@ -40,7 +40,7 @@
 					<h3>Get Attendance</h3>
 					<form action="studentsSuccess.jsp" method="post" class="quoteQuiz">
 						<div>
-							<label>Select a class to send the key to.</label><br>
+							<label>Select a class to send the key</label><br>
 						</div>
 						<div>
 							<p>
