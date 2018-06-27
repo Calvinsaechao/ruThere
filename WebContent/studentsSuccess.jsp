@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -15,12 +15,6 @@
 	
 	<body>
 		<!-- Navigation Bar -->
-		<% 
-		if(session.getAttribute("email") != null)
-		{
-			response.sendRedirect("generateCode.jsp");
-		}
-		%>
 		<header>
 			<div class="container">
 				<div id="branding">
@@ -29,37 +23,38 @@
 				<nav>
 					<ul>
 						<li><a href="index.jsp">Home</a></li>
-						<li class="current"><a href="instructors.jsp">Instructors</a></li>
-						<li><a href="students.jsp">Students</a></li>
+						<li><a href="instructors.jsp">Instructors</a></li>
+						<li class="current"><a href="students.jsp">Students</a></li>
 					</ul>
 				</nav>
 			</div>
 		</header>
-
-		<!--  Background  -->
+		<!-- Navigation Bar -->
+		
+		<!-- Background Image -->
 		<section id="background">
 		<div class="container">
+			<!-- Generate Key -->
 			<aside id="sidebar">
 				<div class="dark">
-					<h3>Instructor's Login</h3>
-					<form action="login" method="post" class="quote">
+					<h3>Get Attendance</h3>
+					<form action="students.jsp" method="post" class="quote">
 						<div>
-							<label>Google Email</label><br>
-							<input type="email" placeholder="Enter your Google Email" name="email">
+							<label>Key has been submitted!</label><br>
 						</div>
-						<div>
-							<label>Password</label>
-							<input type="password" placeholder="Enter your password" name="password">
-						<button class="button_1" type="submit">Login</button>
-						</div>
+						<button class="button_1" type="submit">Return</button>
 					</form>
 				</div>
 			</aside>
+			<!-- Generate Key -->
 		</div>
 		</section>
-
+		<!-- Background Image -->
+	
+		<!-- Footer -->
 		<footer>
 			<p>Web Design by ruThere, Copyright &copy; 2018</p>
 		</footer>
+		<!-- Footer -->
 	</body>
 </html>

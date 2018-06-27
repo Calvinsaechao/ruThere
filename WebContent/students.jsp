@@ -36,24 +36,20 @@
 				<aside id="sidebar">
 					<div class="dark">
 						<h3>Get Attendance</h3>
-						<form action="ruThere" method="post" class="quote">
+						<form action="studentsClassSelect.jsp" method="post" class="quote">
 							<div>
 								<label>SID</label><br>
 								<input name="sid" type="text" placeholder="Enter your student ID">
-							</div>
-							<div>
-								<label>Email</label><br>
-								<input name="email" type="text" placeholder="Enter your Instructor's email">
 							</div>
 							<div>
 								<label>Key</label><br>
 								<input name="password" type="password" placeholder="Enter today's key provided by the professor">
 							</div>
 							<div>
-								<label>Quiz Answer</label><br>
-								<input name="answer" type="text" placeholder="Enter your answer to today's quiz. (up to 140 characters)">
+								<label>Email</label><br>
+								<input name="email" type="text" placeholder="Enter your Instructor's email">
 							</div>
-							<button class="button_1" type="submit">Submit</button>
+							<button class="button_1" type="submit">Next</button>
 						</form>
 					</div>
 				</aside>
