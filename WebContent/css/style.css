@@ -5,7 +5,7 @@ html,body
 	padding:0;
 	margin:0 auto;
 	background-color:#757575;
-	overflow: hidden
+	overflow: hidden;
 }
 
 textarea {
@@ -23,8 +23,9 @@ textarea {
 /* Set the size of the div element that contains the google map */
 #map 
 {
-	position: fixed;
-	height: 800px;/* The height is 400 pixels */
+	position: absolute;
+	top: 100px;
+	height: 100%;/* The height is 400 pixels */
 	width: 100%;/* The width is the width of the web page */
 } 
 
