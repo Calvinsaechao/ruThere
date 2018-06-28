@@ -20,6 +20,7 @@ public class GoogleSheets {
     private ArrayList<String> sheetNames;
     private ArrayList<Integer> sheetAddresses;
     private Sheets service;
+    private static final double DISTANCE_TOLERANCE = 1000.0; // Feet Range of geolocation from professor to student
 
     public  GoogleSheets(String sheetId, Sheets service) throws IOException {
         this.sheetId = sheetId;
@@ -103,8 +104,27 @@ public class GoogleSheets {
             System.out.println("The section you typed does not exist");
         }
         return false;
-
     }
+    public boolean validateStudentGeo(String sheetName, double lat, double lng) throws IOException{
+    	 if(sheetDoesExist(sheetName)) {
+             List<List<Object>> grid = getGridOf(sheetName);
+             double profLat = Double.parseDouble(grid.get(2).get(5).toString());
+             double profLng = Double.parseDouble(grid.get(3).get(5).toString());
+             double distance = Math.sqrt(Math.pow((profLat - lat), 2) + Math.pow((profLng - lng), 2));
+             distance = 364320 * distance;
+             if(distance <= DISTANCE_TOLERANCE) {
+            	 System.out.println("You are within acceptable range: " + distance);
+                 return true;
+             } else {
+             	return false;
+             }
+         } else {
+             System.out.println("Not within range to profesor's device.");
+         }
+         return false;
+    	
+    }
+    
     private void enterValueInto(int row, int col, String value, String sheetName) throws IOException {
 
         int sheetAddress = getSheetAddress(sheetName);

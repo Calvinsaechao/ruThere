@@ -57,9 +57,29 @@
 							<div>
 								<label>Your message</label><br>
 								<input name="answer" type="text" placeholder="Up to 140 characters" required maxLength="140" minLength="1">
+								<input type="hidden" name="coordLat" id ="coordLat" value="" />
+								<input type="hidden" name="coordLng" id ="coordLng" value="" />
 							</div>
 							
 							<button class="button_1" type="submit">Submit</button>
+							
+							<script>
+							// Start this function when page is loaded.
+							window.onload = function getLocation() {		
+							    if (navigator.geolocation) {
+							        navigator.geolocation.getCurrentPosition(showPosition);		
+							    } else { 
+							        console.log("Geolocation is not supported by this browser.");
+							    }
+							    
+							};
+		
+							function showPosition(position) {
+								document.getElementById('coordLat').value = position.coords.latitude + "";
+								document.getElementById('coordLng').value = position.coords.longitude + "";
+								console.log("Ready to generate code.")
+							}
+							</script>
 						</form>
 					</div>
 				</aside>

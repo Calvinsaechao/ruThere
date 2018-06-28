@@ -22,9 +22,11 @@ public class validateStudent extends HttpServlet {
 		String studentId = request.getParameter("sid").trim();
 		String key = request.getParameter("password").trim();
 		String answer = request.getParameter("answer").trim();
+		double lat = Double.parseDouble(request.getParameter("coordLat"));
+		double lng = Double.parseDouble(request.getParameter("coordLng"));
 		//Todo: add a parameter here and in JSP
 		
-		if(ruThere.submitAttendance(email, sheetName, studentId, key, answer)) {
+		if(ruThere.submitAttendance(email, sheetName, studentId, key, answer, lat, lng)) {
 			response.sendRedirect("validationSuccess.jsp");
 		}
 		else response.sendRedirect("validationFailure.jsp");
