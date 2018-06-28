@@ -39,30 +39,29 @@ import org.json.simple.parser.*;
 public class ruThere {
 
 	private static final String databaseLocation = 	//"/Users/kistanod/Projects/Java/ruThere/src/resources/database.json";
-													//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json";
-													"C:/Users/Dennis/git/ruThere/src/resources/database.json";
+													"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json";
+													//"C:/Users/Dennis/git/ruThere/src/resources/database.json";
 													//"C:/Users/Danny/git/ruThere/src/resources/database.json";
-													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/database.json";
+													//"/Users/Calvin/git/ruThere/src/resources/database.json";
 
 					
 	
 	
 	
 	private static final String clientSecretLocation = //"/Users/kistanod/Projects/Java/ruThere/src/resources/client_secret.json";
-													   //"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json";
-													   "C:/Users/Dennis/git/ruThere/src/resources/client_secret.json";
+													   "D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json";
+													   //"C:/Users/Dennis/git/ruThere/src/resources/client_secret.json";
 													   //"C:/Users/Danny/git/ruThere/src/resources/client_secret.json";
-													   //"/Users/Calvin/IdeaProjects/ruThere/src/resources/client_secret.json";
+													   //"/Users/Calvin/git/ruThere/src/resources/client_secret.json";
 	
 	
 	
 	
 	private static final String credentialsLocation = //"/Users/kistanod/Projects/Java/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
-													  //"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json";
-													  "C:/Users/Dennis/git/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													  "D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													  //"C:/Users/Dennis/git/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
 													  //"C:/Users/Danny/git/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
-													  
-													  //"/Users/Calvin/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													  //"/Users/Calvin/git/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
     /** Application name. */
     private static final String APPLICATION_NAME = "ruThere";
 
@@ -144,7 +143,6 @@ public class ruThere {
             }
         }
     }
-    //public static void main(String[] args) throws IOException {
     public static boolean generateCode(String email, String sheetName) throws IOException {	
     	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
         //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
@@ -156,6 +154,49 @@ public class ruThere {
         	if (sheetName.equalsIgnoreCase(sheetNames.get(i))) {
         		mySheet.generateKeyFor(sheetName);
         		//mySheet.generateCoordFor(sheetName, coord);
+        		return true;
+        	}
+        }
+        return false;
+    }
+    
+    public static void main(String[] args) throws IOException {
+    	JSONObject professorInfo = (JSONObject) getEmailInfo("username@gmail.com");
+        //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
+        String spreadsheetId = (String) professorInfo.get("sheetId");
+        Sheets service = getSheetsService();
+        GoogleSheets mySheet = new GoogleSheets(spreadsheetId, service);
+        String sheetNames = mySheet.getSheetNames().get(0);
+    }
+    
+    public static boolean gradeCourses(String email, String sheetName) throws IOException {
+    	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
+    	String spreadsheetId = (String)professorInfo.get("sheetId");
+    	Sheets service = getSheetsService();
+        GoogleSheets mySheet = new GoogleSheets(spreadsheetId, service);
+        
+        ArrayList<String> sheetNames = mySheet.getSheetNames();
+        for(int i = 0; i < sheetNames.size(); i++) {
+        	if (sheetName.equalsIgnoreCase(sheetNames.get(i))) {
+        		List<List<Object>> cells = mySheet.getGridOf(sheetName);
+            	float maxScore = Float.parseFloat((String)cells.get(26).get(4));
+            	int dateCount = Integer.parseInt((String)cells.get(1).get(5));
+            	int studentCount = Integer.parseInt((String)cells.get(0).get(5));
+            	int iAmHere = 0;
+            	String score = "";
+            	for(int row = 1; row <= studentCount; row++) { //each student
+            		iAmHere = 0;
+            		for(int col = 6; col <= dateCount; col++) { //counts attendance
+            			try{
+            				if(!((String)cells.get(row).get(col)).equals(""))
+            					iAmHere++;
+            				} 
+            			catch(java.lang.IndexOutOfBoundsException e) {
+            			}
+            		}
+            		score = Double.toString((Math.round((((iAmHere/(dateCount-5.0))*maxScore) * 100.0)))/100.0);
+            		mySheet.enterValueInto(row, 4, score, sheetName);
+            	}
         		return true;
         	}
         }

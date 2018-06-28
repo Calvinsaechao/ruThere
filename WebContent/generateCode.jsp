@@ -38,12 +38,21 @@
 		<aside id="sidebar">
 			<div class="dark">
 				<h3>Welcome!</h3>
+				
+				<form action="gradeCourses" method="post" class="quote">
+						<div>
+							<label>Type the name of the section</label><br>
+							<input type="text" placeholder="Enter the name of the section" name="sheetName">
+						</div>
+						<button class="button_1" type="submit">Grade</button>
+					</form>
+					
 				<form action="generate" method="post" class="quote" accept-charset="UTF-8">
 					<div>
 						<label>Type the name of the section</label><br>
 					</div>
 					<div>
-					<input type="sheetName" placeholder="Enter the name of the section" name="sheetName">
+					<input type="text" placeholder="Enter the name of the section" name="sheetName">
 					<input type="hidden" name="coordLat" id ="coordLat" value="" />
 					<input type="hidden" name="coordLng" id ="coordLng" value="" />
 					</div>

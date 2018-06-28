@@ -77,4 +77,13 @@
     <url-pattern>/failure</url-pattern>
   </servlet-mapping>
   
+   <servlet>
+    <servlet-name>gradeCourses</servlet-name>
+    <servlet-class>net.codejava.servlet.gradeCourses</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>gradeCourses</servlet-name>
+    <url-pattern>/gradeCourses</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

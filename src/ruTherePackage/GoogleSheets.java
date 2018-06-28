@@ -125,7 +125,7 @@ public class GoogleSheets {
     	
     }
     
-    private void enterValueInto(int row, int col, String value, String sheetName) throws IOException {
+    public void enterValueInto(int row, int col, String value, String sheetName) throws IOException {
 
         int sheetAddress = getSheetAddress(sheetName);
 
@@ -201,7 +201,7 @@ public class GoogleSheets {
         return new SimpleDateFormat("MM/dd/yy").format(new Date());
     }
 
-    private List<List<Object>> getGridOf(String sheetName) throws IOException {
+    public List<List<Object>> getGridOf(String sheetName) throws IOException {
         Sheets.Spreadsheets.Values.Get request =
                 service.spreadsheets()
                         .values()
