@@ -77,6 +77,16 @@ public class GoogleSheets {
         }
 
     }
+    
+    public void generateCoordFor(String sheetName, String lat, String lng) throws IOException {
+        if(sheetDoesExist(sheetName)) {
+            enterValueInto(2, 5, lat, sheetName);
+            enterValueInto(3, 5, lng, sheetName);
+        } else {
+            System.out.println("Could not generate key");
+        }
+
+    }
 
     public  boolean validateStudent(String studentId, String sheetName, String key, String message) throws IOException{
         if(sheetDoesExist(sheetName)) {

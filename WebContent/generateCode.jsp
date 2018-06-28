@@ -38,14 +38,35 @@
 		<aside id="sidebar">
 			<div class="dark">
 				<h3>Welcome!</h3>
-				<form action="generate" method="post" class="quote">
+				<form action="generate" method="post" class="quote" accept-charset="UTF-8">
 					<div>
 						<label>Type the name of the section</label><br>
 					</div>
 					<div>
 					<input type="sheetName" placeholder="Enter the name of the section" name="sheetName">
+					<input type="hidden" name="coordLat" id ="coordLat" value="" />
+					<input type="hidden" name="coordLng" id ="coordLng" value="" />
 					</div>
 					<button class="button_1" type="submit">Generate code</button>
+					
+					<script>
+					// Start this function when page is loaded.
+					window.onload = function getLocation() {		
+					    if (navigator.geolocation) {
+					        navigator.geolocation.getCurrentPosition(showPosition);		
+					    } else { 
+					        console.log("Geolocation is not supported by this browser.");
+					    }
+					    
+					};
+
+					function showPosition(position) {
+						document.getElementById('coordLat').value = position.coords.latitude + "";
+						document.getElementById('coordLng').value = position.coords.longitude + "";
+						console.log("Ready to generate code.")
+					}
+					</script>
+					
 				</form>
 				<form action="logout" method="post" class="quote">
 					<button class="button_2" type="submit">Logout</button>
