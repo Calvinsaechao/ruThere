@@ -37,8 +37,10 @@
 					<form action="returnToStudent" method="post" class="quote">
 						<div>
 							<label>The information did not match. Please try again</label><br>
+							<div class="centerbutton3">
+						    <button class="button_3" type="submit">Try again</button>
+							</div>
 						</div>
-						<center><button class="button_1" type="submit">Try again</button></center>
 					</form>
 				</div>
 			</aside>

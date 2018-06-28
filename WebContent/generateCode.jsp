@@ -75,7 +75,7 @@
 						console.log("Ready to generate code.")
 					}
 					</script>
-					
+
 				</form>
 				<form action="logout" method="post" class="quote">
 					<button class="button_2" type="submit">Logout</button>

@@ -42,9 +42,8 @@ public class ruThere {
 													"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json";
 													//"C:/Users/Dennis/git/ruThere/src/resources/database.json";
 													//"C:/Users/Danny/git/ruThere/src/resources/database.json";
-													//"/Users/Calvin/git/ruThere/src/resources/database.json";
-
-					
+													//"/Users/Calvin/IdeaProjects/ruThere/src/resources/database.json";
+													//"X:\\Desktop\\Eclipse-Workspace\\ruThere\\src\\resources\\database.json";
 	
 	
 	
@@ -52,7 +51,8 @@ public class ruThere {
 													   "D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json";
 													   //"C:/Users/Dennis/git/ruThere/src/resources/client_secret.json";
 													   //"C:/Users/Danny/git/ruThere/src/resources/client_secret.json";
-													   //"/Users/Calvin/git/ruThere/src/resources/client_secret.json";
+													   //"/Users/Calvin/IdeaProjects/ruThere/src/resources/client_secret.json";
+													   //"X:\\Desktop\\Eclipse-Workspace\\ruThere\\src\\resources\\client_secret.json";
 	
 	
 	
@@ -61,7 +61,9 @@ public class ruThere {
 													  "D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json";
 													  //"C:/Users/Dennis/git/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
 													  //"C:/Users/Danny/git/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
-													  //"/Users/Calvin/git/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													  //"/Users/Calvin/IdeaProjects/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
+													  //"X:\\Desktop\\Eclipse-Workspace\\ruThere\\src\\resources\\credentials\\sheets.googleapis.com-java-quickstart.json";
+
     /** Application name. */
     private static final String APPLICATION_NAME = "ruThere";
 
