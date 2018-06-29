@@ -81,11 +81,16 @@
     <script>
     // Start this function when page is loaded.
     var x = document.getElementById("showError");
+	var options = {
+			enableHighAccuracy: true;
+			timeout: 5000,
+			maximumAge: 0
+	};
     window.onload = function getLocation() 
     {    
         if (navigator.geolocation) 
         {
-          navigator.geolocation.getCurrentPosition(showPosition, showError);    
+          navigator.geolocation.getCurrentPosition(showPosition, showError,options);    
         } 
         else 
         { 
