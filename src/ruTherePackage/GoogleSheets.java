@@ -20,7 +20,7 @@ public class GoogleSheets {
     private ArrayList<String> sheetNames;
     private ArrayList<Integer> sheetAddresses;
     private Sheets service;
-    private static final double DISTANCE_TOLERANCE = 1000.0; // Feet Range of geolocation from professor to student
+    private static final double DISTANCE_TOLERANCE = 20; // Feet Range of geolocation from professor to student
 
     public  GoogleSheets(String sheetId, Sheets service) throws IOException {
         this.sheetId = sheetId;
