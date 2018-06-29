@@ -42,7 +42,7 @@
 				<form action="gradeCourses" method="post" class="quote">
 						<div>
 							<label>Type the name of the section</label><br>
-							<input type="text" placeholder="Enter the name of the section" name="sheetName">
+							<input type="text" placeholder="Enter section for grading" name="sheetName">
 						</div>
 						<button class="button_1" type="submit">Grade</button>
 					</form>
@@ -52,7 +52,7 @@
 						<label>Type the name of the section</label><br>
 					</div>
 					<div>
-					<input type="text" placeholder="Enter the name of the section" name="sheetName">
+					<input type="text" placeholder="Enter section for generating code" name="sheetName">
 					<input type="hidden" name="coordLat" id ="coordLat" value="" />
 					<input type="hidden" name="coordLng" id ="coordLng" value="" />
 					</div>
