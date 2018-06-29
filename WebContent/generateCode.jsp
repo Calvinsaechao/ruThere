@@ -106,3 +106,4 @@
 		<footer>
 			<p>Web Design by ruThere, Copyright &copy; 2018</p>
 		</footer>
+	</body>
