@@ -96,7 +96,7 @@
     {
         document.getElementById('coordLat').value = position.coords.latitude + "";
         document.getElementById('coordLng').value = position.coords.longitude + "";
-        document.getElementById('btn1').disabled = false;
+        document.getElementById('btn').disabled = false;
         console.log("Ready to generate code.")
     }
     function showError(error) {
