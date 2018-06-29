@@ -67,7 +67,7 @@
               </div>
               <!-- Button Container -->
               <div class="buttonContainer">
-                <br><button class="button_5" type="submit">Submit</button>
+                <br><button class="button_5" id="btn1" type="submit" disabled>Submit</button>
               </div>
               <!-- Button Container -->
             </form>
@@ -94,6 +94,7 @@
     {
         document.getElementById('coordLat').value = position.coords.latitude + "";
         document.getElementById('coordLng').value = position.coords.longitude + "";
+        document.getElementById('btn1').disabled = false;
         console.log("Ready to generate code.")
     }
     </script>
