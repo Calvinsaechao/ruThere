@@ -544,6 +544,21 @@ footer
 		margin:0 auto;
 		background-color:#757575;
 		overflow: auto;
+<<<<<<< HEAD
+=======
+	}	
+	#background
+	{
+		position: fixed;
+		top: 0px;
+		height: 100%;
+		width: 100%;
+		background:url('../images/students.jpg') no-repeat center;
+		text-align: center;
+		color:#ECECEC;
+		padding-top: 0px;
+		margin: 0 auto;
+>>>>>>> refs/remotes/origin/master
 	}
 	header #branding,
 	header nav,
