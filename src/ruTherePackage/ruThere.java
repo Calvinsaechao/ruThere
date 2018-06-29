@@ -243,8 +243,8 @@ public class ruThere {
         GoogleSheets mySheet = new GoogleSheets(spreadsheetId, service);
         ArrayList<String> sheetNames = mySheet.getSheetNames();
         for(int i = 0; i < sheetNames.size(); i++) {
-        	if (sheetName.equalsIgnoreCase(sheetNames.get(i))) {
-        		return mySheet.validateStudent(studentId, sheetName, key, answer) && mySheet.validateStudentGeo(sheetName, lat, lng);
+        	if (sheetName.equalsIgnoreCase(sheetNames.get(i)) && mySheet.validateStudentGeo(sheetName, lat, lng)) {
+        		return mySheet.validateStudent(studentId, sheetName, key, answer);
         	}
         }
         return false;
