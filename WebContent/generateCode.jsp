@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 	<head>
@@ -63,7 +62,7 @@
 					// Start this function when page is loaded.
 					var x = document.getElementById("showError");
 					var options = {
-								enableHighAccuracy: true;
+								enableHighAccuracy: true,
 								timeout: 5000,
 								maximumAge: 0
 					};
