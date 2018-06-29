@@ -432,6 +432,16 @@ footer
 	{
 		padding-bottom:20px;
 	}
+	footer 
+	{
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		padding: 10px;
+		color:#ffffff;
+		background-color:#e8491d;
+		text-align: center;
+	}
 	.dark
 	{
 		left: -30px;
@@ -524,14 +534,6 @@ footer
 /* Mobile Phones */
 @media (max-width: 576px) 
 {
-	html,body
-	{
-		min-height: 100%;
-		font: 15px/1.5 Arial, Helvetica,sans-serif;
-		padding:0;
-		margin:0 auto;
-		background-color:#757575;
-	}
 	header #branding,
 	header nav,
 	header nav li,
@@ -570,6 +572,16 @@ footer
 	header
 	{
 		padding-bottom:20px;
+	}
+	footer 
+	{
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		padding: 5px;
+		color:#ffffff;
+		background-color:#e8491d;
+		text-align: center;
 	}
 	.container
 	{
