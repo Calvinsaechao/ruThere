@@ -56,7 +56,7 @@
 					<input type="hidden" name="coordLat" id ="coordLat" value="" />
 					<input type="hidden" name="coordLng" id ="coordLng" value="" />
 					</div>
-					<button class="button_1" type="submit">Generate code</button>
+					<button class="button_1" id="btn1" type="submit" disabled>Generate code</button>
 					
 					<script>
 					// Start this function when page is loaded.
@@ -73,6 +73,7 @@
 						document.getElementById('coordLat').value = position.coords.latitude + "";
 						document.getElementById('coordLng').value = position.coords.longitude + "";
 						console.log("Ready to generate code.")
+						document.getElementById('btn1').disabled = false;
 					}
 					</script>
 
