@@ -67,7 +67,8 @@
               </div>
               <!-- Button Container -->
               <div class="buttonContainer">
-                <br><button class="button_5" id="btn1" type="submit" disabled>Submit</button>
+                <br><button class="button_5" id="btn" type="submit" disabled>Submit</button>
+                <p id="showError" style="color:#F01620;"></p>
               </div>
               <!-- Button Container -->
             </form>
@@ -79,17 +80,18 @@
     
     <script>
     // Start this function when page is loaded.
+    var x = document.getElementById("showError");
     window.onload = function getLocation() 
     {    
         if (navigator.geolocation) 
         {
-          navigator.geolocation.getCurrentPosition(showPosition);    
+          navigator.geolocation.getCurrentPosition(showPosition, showError);    
         } 
         else 
         { 
           console.log("Geolocation is not supported by this browser.");
         }
-    };
+    }
     function showPosition(position) 
     {
         document.getElementById('coordLat').value = position.coords.latitude + "";
@@ -97,6 +99,22 @@
         document.getElementById('btn1').disabled = false;
         console.log("Ready to generate code.")
     }
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                x.innerHTML = "Error: User denied the request for Geolocation."
+                break;
+            case error.POSITION_UNAVAILABLE:
+                x.innerHTML = "Error: Location information is unavailable."
+                break;
+            case error.TIMEOUT:
+                x.innerHTML = "Error: The request to get user location timed out."
+                break;
+            case error.UNKNOWN_ERROR:
+                x.innerHTML = "Error: An unknown error occurred."
+                break;
+        }
+    } 
     </script>
     
     <footer>
