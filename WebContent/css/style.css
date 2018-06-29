@@ -7,7 +7,9 @@ html,body
 	background-color:#757575;
 	overflow: hidden;
 }
-
+.autoheight {
+    height:100%;
+}
 /* Set the size of the div element that contains the google map */
 #map 
 {
@@ -534,6 +536,15 @@ footer
 /* Mobile Phones */
 @media (max-width: 576px) 
 {
+	html,body
+	{
+		min-height: 100%;
+		font: 15px/1.5 Arial, Helvetica,sans-serif;
+		padding:0;
+		margin:0 auto;
+		background-color:#757575;
+		overflow: auto;
+	}
 	header #branding,
 	header nav,
 	header nav li,
