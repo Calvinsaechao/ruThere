@@ -92,7 +92,7 @@
           console.log("Geolocation is not supported by this browser.");
         }
     }
-    function showPosition(position) 
+    function showPosition(position, showError) 
     {
         document.getElementById('coordLat').value = position.coords.latitude + "";
         document.getElementById('coordLng').value = position.coords.longitude + "";

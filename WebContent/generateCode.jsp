@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 	<head>
@@ -44,7 +45,7 @@
 							<label>Type the name of the section</label><br>
 							<input type="text" placeholder="Enter section for grading" name="sheetName">
 						</div>
-						<button class="button_1" type="submit">Grade</button>
+						<button class="button_3" type="submit">Grade</button>
 					</form>
 					
 				<form action="generate" method="post" class="quote" accept-charset="UTF-8">
@@ -56,7 +57,7 @@
 					<input type="hidden" name="coordLat" id ="coordLat" value="" />
 					<input type="hidden" name="coordLng" id ="coordLng" value="" />
 					</div>
-					<button class="button_1" id="btn1" type="submit" disabled>Generate code</button>
+					<button class="button_3" id="btn1" type="submit" disabled>Generate code</button>
 					<p id="showError" style="color:#F01620;"></p>
 					<script>
 					// Start this function when page is loaded.
@@ -93,10 +94,11 @@
 				        }
 				    } 
 					</script>
-
-				</form>
+			</form>
 				<form action="logout" method="post" class="quote">
+				<div class="buttonContainer3">
 					<button class="button_2" type="submit">Logout</button>
+				</div>
 				</form>
 			</div>
 		</aside>
@@ -106,4 +108,5 @@
 		<footer>
 			<p>Web Design by ruThere, Copyright &copy; 2018</p>
 		</footer>
-	</body>
+		</body>
+		</html>
