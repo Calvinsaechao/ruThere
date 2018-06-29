@@ -43,7 +43,7 @@
               <label>The information did not match. Please try again</label><br>
               <!-- Button Container -->
               <div class="buttonContainer">
-                <br><button class="button_4" type="submit">Try again</button>
+                <br><button class="button_3" type="submit">Try again</button>
               </div>
               <!-- Button Container -->
             </div>

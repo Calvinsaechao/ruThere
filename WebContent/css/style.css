@@ -432,16 +432,6 @@ footer
 	{
 		padding-bottom:20px;
 	}
-	footer 
-	{
-		position: fixed;
-		bottom: 0;
-		width: 100%;
-		padding: 10px;
-		color:#ffffff;
-		background-color:#e8491d;
-		text-align: center;
-	}
 	.dark
 	{
 		left: -30px;
@@ -580,16 +570,6 @@ footer
 	header
 	{
 		padding-bottom:20px;
-	}
-	footer 
-	{
-		position: fixed;
-		bottom: 0;
-		width: 100%;
-		padding: 5px;
-		color:#ffffff;
-		background-color:#e8491d;
-		text-align: center;
 	}
 	.container
 	{
