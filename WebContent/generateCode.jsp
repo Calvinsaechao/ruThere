@@ -56,21 +56,15 @@
 					<input type="hidden" name="coordLat" id ="coordLat" value="" />
 					<input type="hidden" name="coordLng" id ="coordLng" value="" />
 					</div>
-					<button class="button_3" id="btn1" type="submit" disabled>Generate code</button>
+					<button class="button_3" id="btn" type="submit" style="opacity: 0.5;" disabled>Generate code</button>
 					<p id="showError" style="color:#F01620;"></p>
 					<script>
 					// Start this function when page is loaded.
 					var x = document.getElementById("showError");
 					var options = {
-<<<<<<< HEAD
-								enableHighAccuracy: true,
-								timeout: 5000,
-								maximumAge: 0
-=======
 							enableHighAccuracy: true,
-							timeout: 5000,
+							timeout: 10000,
 							maximumAge: 0
->>>>>>> refs/remotes/origin/master
 					};
 					window.onload = function getLocation() {		
 					    if (navigator.geolocation) {
@@ -85,7 +79,8 @@
 						document.getElementById('coordLat').value = position.coords.latitude + "";
 						document.getElementById('coordLng').value = position.coords.longitude + "";
 						console.log("Ready to generate code.")
-						document.getElementById('btn1').disabled = false;
+						document.getElementById('btn').disabled = false;
+						document.getElementById("btn").style.opacity = "1.0";
 					}
 					function showError(error) {
 				        switch(error.code) {

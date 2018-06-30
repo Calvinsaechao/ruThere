@@ -67,7 +67,7 @@
               </div>
               <!-- Button Container -->
               <div class="buttonContainer">
-                <br><button class="button_5" id="btn" type="submit" disabled>Submit</button>
+                <br><button class="button_5" id="btn" type="submit" style="opacity: 0.5;" disabled>Submit</button>
                 <p id="showError" style="color:#F01620;"></p>
               </div>
               <!-- Button Container -->
@@ -83,7 +83,7 @@
     var x = document.getElementById("showError");
 	var options = {
 			enableHighAccuracy: true,
-			timeout: 5000,
+			timeout: 10000,
 			maximumAge: 0
 	};
     window.onload = function getLocation() 
@@ -102,6 +102,7 @@
         document.getElementById('coordLat').value = position.coords.latitude + "";
         document.getElementById('coordLng').value = position.coords.longitude + "";
         document.getElementById('btn').disabled = false;
+        document.getElementById("btn").style.opacity = "1.0";
         console.log("Ready to generate code.")
     }
     function showError(error) {
