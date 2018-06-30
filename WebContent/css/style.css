@@ -544,8 +544,6 @@ footer
 		margin:0 auto;
 		background-color:#757575;
 		overflow: auto;
-<<<<<<< HEAD
-=======
 	}	
 	#background
 	{
@@ -558,7 +556,6 @@ footer
 		color:#ECECEC;
 		padding-top: 0px;
 		margin: 0 auto;
->>>>>>> refs/remotes/origin/master
 	}
 	header #branding,
 	header nav,
@@ -608,6 +605,7 @@ footer
 		color:#ffffff;
 		background-color:#e8491d;
 		text-align: center;
+		visibility: hidden;
 	}
 	.container
 	{
