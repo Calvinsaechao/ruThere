@@ -20,7 +20,7 @@ public class GoogleSheets {
     private ArrayList<String> sheetNames;
     private ArrayList<Integer> sheetAddresses;
     private Sheets service;
-    private static final double DISTANCE_TOLERANCE = 20; // Feet Range of geolocation from professor to student
+    private static final double DISTANCE_TOLERANCE = 100; // Feet Range of geolocation from professor to student
 
     public  GoogleSheets(String sheetId, Sheets service) throws IOException {
         this.sheetId = sheetId;
@@ -79,10 +79,17 @@ public class GoogleSheets {
 
     }
     
+    /**
+     * Writes the Professor's latitude and longitude coordinates at a defined location on their Google Sheet.
+     * @param sheetName
+     * @param lat Professor's latitude coordinate.
+     * @param lng Professor's latitude coordinate.
+     * @throws IOException
+     */
     public void generateCoordFor(String sheetName, String lat, String lng) throws IOException {
         if(sheetDoesExist(sheetName)) {
-            enterValueInto(2, 5, lat, sheetName);
-            enterValueInto(3, 5, lng, sheetName);
+            enterValueInto(2, 5, lat, sheetName); // Write the latitude at F3
+            enterValueInto(3, 5, lng, sheetName); // Write the longitude at F4
         } else {
             System.out.println("Could not generate key");
         }
@@ -105,6 +112,17 @@ public class GoogleSheets {
         }
         return false;
     }
+    /**
+     * Validates the student's geolocation in the following fashion:
+     * Returns true if the user is within accepted range (DISTANCE_TOLERANCE) of the professor's geolocation.
+     * Returns false if not within range of the professor, given a non-existing sheetName, or fails other cases.
+     * 
+     * @param sheetName the name of the professor's sheet, may be provided to the student.
+     * @param lat is the Student's Latitude. Is used to compare the distance from the professor.
+     * @param lng is the Student's Longitude. Is used to compare the distance from the professor.
+     * @return true or false depending if the user passes the validation.
+     * @throws IOException
+     */
     public boolean validateStudentGeo(String sheetName, double lat, double lng) throws IOException{
     	 if(sheetDoesExist(sheetName)) {
              List<List<Object>> grid = getGridOf(sheetName);
@@ -116,10 +134,13 @@ public class GoogleSheets {
             	 System.out.println("You are within acceptable range: " + distance);
                  return true;
              } else {
+            	 System.out.println("You are beyond the acceptable range from professor: " + distance + " ft");
+            	 System.out.println("Acceptable range is: " + DISTANCE_TOLERANCE + " ft");
+            	 System.out.println("You are off by: " + (distance - DISTANCE_TOLERANCE) + " ft");
              	return false;
              }
          } else {
-             System.out.println("Not within range to profesor's device.");
+             System.out.println("Sheet doesnt exist.");
          }
          return false;
     	
