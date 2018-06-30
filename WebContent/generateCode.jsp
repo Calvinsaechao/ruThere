@@ -62,15 +62,9 @@
 					// Start this function when page is loaded.
 					var x = document.getElementById("showError");
 					var options = {
-<<<<<<< HEAD
 								enableHighAccuracy: true,
 								timeout: 5000,
 								maximumAge: 0
-=======
-							enableHighAccuracy: true,
-							timeout: 10000,
-							maximumAge: 0
->>>>>>> refs/remotes/origin/master
 					};
 					window.onload = function getLocation() {		
 					    if (navigator.geolocation) {
