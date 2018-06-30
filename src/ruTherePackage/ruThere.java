@@ -1,5 +1,5 @@
 package ruTherePackage;
-// This is ruThere. This program is used as a demo to demostrate an update to a fix cell location on a Google sheet
+// This is ruThere. This program is used as a demo to demonstrate an update to a fix cell location on a Google sheet
 // Todos: Please be sure to update the location of your client_secret.json file & the GoogleSheets id before running your program.
 // Date: 6/1/18
 import com.google.api.client.auth.oauth2.Credential;
@@ -39,7 +39,6 @@ import org.json.simple.parser.*;
 public class ruThere {
 
 	private static final String databaseLocation = 	//"/Users/kistanod/Projects/Java/ruThere/src/resources/database.json";
-													//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json";
 													"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json";
 													//"C:/Users/Dennis/git/ruThere/src/resources/database.json";
 													//"C:/Users/Danny/git/ruThere/src/resources/database.json";
@@ -49,7 +48,6 @@ public class ruThere {
 	
 	
 	private static final String clientSecretLocation = //"/Users/kistanod/Projects/Java/ruThere/src/resources/client_secret.json";
-													   //"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json";
 													   "D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json";
 													   //"C:/Users/Dennis/git/ruThere/src/resources/client_secret.json";
 													   //"C:/Users/Danny/git/ruThere/src/resources/client_secret.json";
@@ -60,7 +58,6 @@ public class ruThere {
 	
 	
 	private static final String credentialsLocation = //"/Users/kistanod/Projects/Java/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
-													  //"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json";
 													  "D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/credentials/sheets.googleapis.com-java-quickstart.json";
 													  //"C:/Users/Dennis/git/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
 													  //"C:/Users/Danny/git/ruThere/src/resources/credentials/sheets.googleapis.com-java-quickstart.json";
@@ -105,10 +102,7 @@ public class ruThere {
     public static Credential authorize() throws IOException {
         // Load client secrets.
         // Todo: Change this text to the location where your client_secret.json resided
-        InputStream in = new FileInputStream(
-        		//"/Users/Calvin/IdeaProjects/ruThere/src/resources/client_secret.json");
-        		//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/client_secret.json");
-        clientSecretLocation);
+        InputStream in = new FileInputStream(clientSecretLocation);
         		
         		
             // ruThere.class.getResourceAsStream("/client_secret.json");
@@ -158,7 +152,6 @@ public class ruThere {
         for(int i = 0; i < sheetNames.size(); i++) {
         	if (sheetName.equalsIgnoreCase(sheetNames.get(i))) {
         		mySheet.generateKeyFor(sheetName);
-        		//mySheet.generateCoordFor(sheetName, coord);
         		return true;
         	}
         }
@@ -261,8 +254,6 @@ public class ruThere {
         try {
             JSONObject database = (JSONObject) new JSONParser().parse(
                     new FileReader(
-                            		//"/Users/Calvin/IdeaProjects/ruThere/src/resources/database.json")));
-                            		//"D:/home/site/wwwroot/webapps/ROOT/WEB-INF/classes/resources/database.json")));
                             new File(databaseLocation)));
                             		
             Map emails = ((Map)database.get("emails"));
