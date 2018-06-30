@@ -56,7 +56,7 @@
 					<input type="hidden" name="coordLat" id ="coordLat" value="" />
 					<input type="hidden" name="coordLng" id ="coordLng" value="" />
 					</div>
-					<button class="button_3" id="btn" type="submit" style="opacity: 0.5;" disabled>Generate code</button>
+					<button class="button_3" id="btn" type="submit" style="opacity: 0.5;" disabled>N/A</button>
 					<p id="showError" style="color:#F01620;"></p>
 					<script>
 					// Start this function when page is loaded.

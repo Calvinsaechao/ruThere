@@ -67,7 +67,7 @@
               </div>
               <!-- Button Container -->
               <div class="buttonContainer">
-                <br><button class="button_5" id="btn" type="submit" style="opacity: 0.5;" disabled>Submit</button>
+                <br><button class="button_5" id="btn" type="submit" style="opacity: 0.5;" disabled>N/A</button>
                 <p id="showError" style="color:#F01620;"></p>
               </div>
               <!-- Button Container -->
