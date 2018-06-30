@@ -78,9 +78,10 @@
 					function showPosition(position) {
 						document.getElementById('coordLat').value = position.coords.latitude + "";
 						document.getElementById('coordLng').value = position.coords.longitude + "";
-						console.log("Ready to generate code.")
 						document.getElementById('btn').disabled = false;
 						document.getElementById("btn").style.opacity = "1.0";
+						document.getElementById("btn").innerText = 'Generate Code';
+						console.log("Ready to generate code.")
 					}
 					function showError(error) {
 				        switch(error.code) {

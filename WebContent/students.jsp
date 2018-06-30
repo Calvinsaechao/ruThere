@@ -96,13 +96,14 @@
         { 
           console.log("Geolocation is not supported by this browser.");
         }
-    }
+    };
     function showPosition(position, showError) 
     {
         document.getElementById('coordLat').value = position.coords.latitude + "";
         document.getElementById('coordLng').value = position.coords.longitude + "";
         document.getElementById('btn').disabled = false;
         document.getElementById("btn").style.opacity = "1.0";
+        document.getElementById("btn").innerText = 'Submit';
         console.log("Ready to generate code.")
     }
     function showError(error) {
