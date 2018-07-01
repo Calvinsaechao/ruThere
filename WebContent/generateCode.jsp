@@ -38,7 +38,7 @@
     <aside id="sidebar">
       <div class="dark">
         <h3>Welcome!</h3>
-        
+        <a href="downloadAttCanvas.pdf" download style="color:red">Upload grades to Canvas (PDF)</a>
         <form action="gradeCourses" method="post" class="quote">
             <div>
               <label>Type the name of the section</label><br>

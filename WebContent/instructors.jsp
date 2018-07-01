@@ -49,14 +49,14 @@
             <!-- Input box container Title and Label -->
             <div>
               <label>Google Email</label><br>
-              <input type="email" placeholder="Enter your Google Email" name="email">
+              <input type="email" placeholder="Enter your Google Email" name="email" required minLength = "1">
             </div>
             <!-- Input box container Title and Label -->
             <!-- Input box container Title and Label -->
             <div>
               <label><br>
                 Password</label>
-              <input type="password" placeholder="Enter your password" name="password">
+              <input type="password" placeholder="Enter your password" name="password" required minLength = "1">
               <!-- Button Container -->
               <div class="buttonContainer">
                 <br><button class="button_1" type="submit">Login</button>
