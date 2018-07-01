@@ -74,18 +74,17 @@
             </form>
           </div>
         </aside>
-      
       </div>
     </section>
     
     <script>
     // Start this function when page is loaded.
     var x = document.getElementById("showError");
-	var options = {
-			enableHighAccuracy: true,
-			timeout: 10000,
-			maximumAge: 0
-	};
+    var options = {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+    };
     window.onload = function getLocation() 
     {    
         if (navigator.geolocation) 
@@ -123,9 +122,9 @@
         }
     } 
     </script>
-    
-    <footer>
-      <p>Web Design by ruThere, Copyright &copy; 2018</p>
-    </footer>
+      
+        <footer>
+          <p>Web Design by ruThere, Copyright &copy; 2018</p>
+        </footer>
   </body>
 </html>

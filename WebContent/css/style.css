@@ -1,3 +1,4 @@
+/* Container of the browser */
 html,body
 {
 	min-height: 100%;
@@ -7,9 +8,7 @@ html,body
 	background-color:#757575;
 	overflow: hidden;
 }
-.autoheight {
-    height:100%;
-}
+
 /* Set the size of the div element that contains the google map */
 #map 
 {
@@ -19,18 +18,150 @@ html,body
 	width: 100%;/* The width is the width of the web page */
 } 
 
-/* Global Containers*/
+/* Global Container */
 .container 
 {
 	width: 80%;
 	margin: 0 auto;
-	overflow:hidden;
+	overflow: hidden;
 }
 
 ul 
 {
 	margin:0;
 	padding:0;
+}
+
+/* Background Image */
+#background
+{
+	position: absolute;
+	top: 0px;
+	height: 100%;
+	width: 100%;
+	background:url('../images/students.jpg') no-repeat center;
+	text-align: center;
+	color:#ECECEC;
+	padding: 0px 20px 20px 0px;
+	margin: 0 auto 0px auto;
+	overflow-x: hidden;
+}
+
+/* Header */
+header
+{
+	z-index: 1000;
+	position: fixed;
+	margin-bottom: 100px;
+	background:#35424a;
+	color:#ffffff;
+	padding-top:30px;
+	min-height: 70px;
+	border-bottom:#e8491d 3px solid;;
+	width: 100%;
+	top: 0;
+}
+
+header a
+{
+	color:#ffffff;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size:16px;
+}
+
+header li
+{
+	float:left;
+	display:inline;
+	padding: 0 20px 0 20px;
+}
+
+header #branding
+{
+	float:left;
+}
+
+header #branding h1
+{
+	margin:0;
+}
+
+header nav
+{
+	float:right;
+	margin-top:10px;
+}
+
+header .highlight, header .current a
+{
+	color:#e8491d;
+	font-weight:bold;
+}
+
+header a:hover
+{
+	color:#C7C7C7;
+	text-decoration: underline;
+}
+
+/* Forms Background Box */
+.dark
+{
+	left: -50px;
+	position: relative;
+	padding: 50px;
+	background:#35424a;
+	color:#ffffff;
+	width: 100%;
+	margin: 150px auto;
+}
+
+/* Boxes */
+#boxes
+{
+	margin-top:20px;
+}
+
+#boxes .box
+{
+	float:left;
+	text-align: center;
+	width:30%;
+	padding:10px;
+}
+
+#boxes .box img
+{
+	width:90px;
+}
+
+/* Form Boxes */
+/* Forms Box Container */
+aside#sidebar
+{
+	left: 100px;
+	float: none;
+	width: 50%;
+	margin: 0 auto;
+	padding-bottom: 50px;
+	text-align: left;
+}
+/* Forms Container */
+aside#sidebar .quote
+{
+	width:100%;
+	box-sizing: border-box;
+	padding:5px;
+	text-align: left;
+}
+/* Input Box Container */
+input
+{
+	width:100%;
+	box-sizing: border-box;
+	padding:5px;
+	text-align: left;
 }
 
 /* Button Containers */
@@ -110,138 +241,6 @@ ul
 	margin: 0 auto;
 }
 
-/* Forms Background Box */
-.dark
-{
-	left: -50px;
-	position: relative;
-	padding: 50px;
-	background:#35424a;
-	color:#ffffff;
-	width: 80%;
-	margin: 150px auto;
-}
-
-/* Header */
-header
-{
-	z-index: 1000;
-	position: fixed;
-	margin-bottom: 100px;
-	background:#35424a;
-	color:#ffffff;
-	padding-top:30px;
-	min-height: 70px;
-	border-bottom:#e8491d 3px solid;;
-	width: 100%;
-	top: 0;
-}
-
-header a
-{
-	color:#ffffff;
-	text-decoration: none;
-	text-transform: uppercase;
-	font-size:16px;
-}
-
-header li
-{
-	float:left;
-	display:inline;
-	padding: 0 20px 0 20px;
-}
-
-header #branding
-{
-	float:left;
-}
-
-header #branding h1
-{
-	margin:0;
-}
-
-header nav
-{
-	float:right;
-	margin-top:10px;
-}
-
-header .highlight, header .current a
-{
-	color:#e8491d;
-	font-weight:bold;
-}
-
-header a:hover
-{
-	color:#C7C7C7;
-	text-decoration: underline;
-}
-
-/* Background Images */
-/* instructors.html */
-#background
-{
-	position: absolute;
-	top: 0px;
-	height: 100%;
-	width: 100%;
-	background:url('../images/students.jpg') no-repeat center;
-	text-align: center;
-	color:#ECECEC;
-	padding-top: 0px;
-	margin: 0 auto;
-}
-
-/* Boxes */
-#boxes
-{
-	margin-top:20px;
-}
-
-#boxes .box
-{
-	float:left;
-	text-align: center;
-	width:30%;
-	padding:10px;
-}
-
-#boxes .box img
-{
-	width:90px;
-}
-
-/* Form Boxes */
-/* Form Box Containers */
-aside#sidebar
-{
-	left: 100px;
-	float: none;
-	width: 50%;
-	margin: 0 auto;
-	padding-bottom: 50px;
-	text-align: left;
-}
-/* Form Box Containers */
-aside#sidebar .quote
-{
-	width:100%;
-	box-sizing: border-box;
-	padding:5px;
-	text-align: left;
-}
-/* Input Box Container */
-input
-{
-	width:100%;
-	box-sizing: border-box;
-	padding:5px;
-	text-align: left;
-}
-
 /* Services */
 ul#services li
 {
@@ -282,11 +281,28 @@ footer
 		width: 100%;
 		margin: 0 0 0 0;
 	}
-	/* Form Box Containers */
+	/* Header */
+	header
+	{
+		padding-bottom:20px;
+	}
+	/* Forms Background Box */
+	.dark
+	{
+		left: -30px;
+		position: relative;
+		padding: 30px;
+		background:#35424a;
+		color:#ffffff;
+		width: 100%;
+		margin: 150px auto;
+	}
+	/* Forms Box Header Title */
 	h3
 	{
 		text-align: center;
 	}
+	/* Forms Container */
 	aside#sidebar .quote
 	{
 		width:100%;
@@ -301,20 +317,6 @@ footer
 		box-sizing: border-box;
 		padding:5px;
 		text-align: left;
-	}
-	header
-	{
-		padding-bottom:20px;
-	}
-	.dark
-	{
-		left: -30px;
-		position: relative;
-		padding: 30px;
-		background:#35424a;
-		color:#ffffff;
-		width: 100%;
-		margin: 150px auto;
 	}
 	/* Button Containers */
 	.buttonContainer
@@ -410,40 +412,12 @@ footer
 		width: 100%;
 		margin: 0 0 0 0;
 	}
-	/* Form Box Containers */
-	h3
-	{
-		text-align: center;
-	}
-	aside#sidebar .quote
-	{
-		width:100%;
-		box-sizing: border-box;
-		padding:5px;
-		text-align: center;
-	}
-	/* Input Box Container */
-	input
-	{
-		width:100%;
-		box-sizing: border-box;
-		padding:5px;
-		text-align: left;
-	}
+	/* Header */
 	header
 	{
 		padding-bottom:20px;
 	}
-	footer 
-	{
-		position: fixed;
-		bottom: 0;
-		width: 100%;
-		padding: 10px;
-		color:#ffffff;
-		background-color:#e8491d;
-		text-align: center;
-	}
+	/* Forms Background Box */
 	.dark
 	{
 		left: -30px;
@@ -454,129 +428,12 @@ footer
 		width: 100%;
 		margin: 150px auto;
 	}
-	
-	/* Button Containers */
-	.buttonContainer
-	{
-		width: 100%;
-		text-align: center;
-	}
-	.buttonContainer2
-	{
-		width: 100%;
-		text-align: left;
-	}
-	.buttonContainer3
-	{
-		width: 100%;
-		text-align: right;
-	}
-
-	/* Login Button */
-	.button_1
-	{
-		height:38px;
-		background:#e8491d;
-		border:0;
-		padding-left: 20px;
-		padding-right:20px;
-		color:#ffffff;
-		margin: 0 auto;
-	}
-
-	/* Logout Button */
-	.button_2
-	{
-		height:23px;
-		background:#e8491d;
-		border:0;
-		padding-left: 20px;
-		padding-right:20px;
-		color:#ffffff;
-		margin: 0 auto;
-	}
-
-	/* Grade and Generate Code Buttons */
-	.button_3
-	{
-		height:38px;
-		background:#e8491d;
-		border:0;
-		padding-left: 20px;
-		padding-right:20px;
-		color:#ffffff;
-		margin: 10px auto;
-	}
-
-	/* Return Buttons */
-	.button_4
-	{
-		height:38px;
-		background:#e8491d;
-		border:0;
-		padding-left: 20px;
-		padding-right:20px;
-		color:#ffffff;
-		margin: 0 auto;
-	}
-
-	/* Submit Buttons */
-	.button_5
-	{
-		height:38px;
-		background:#e8491d;
-		border:0;
-		padding-left: 20px;
-		padding-right:20px;
-		color:#ffffff;
-		margin: 0 auto;
-	}
-}
-
-/* Mobile Phones */
-@media (max-width: 576px) 
-{
-	html,body
-	{
-		min-height: 100%;
-		font: 15px/1.5 Arial, Helvetica,sans-serif;
-		padding:0;
-		margin:0 auto;
-		background-color:#757575;
-		overflow: auto;
-	}	
-	#background
-	{
-		position: fixed;
-		top: 0px;
-		height: 100%;
-		width: 100%;
-		background:url('../images/students.jpg') no-repeat center;
-		text-align: center;
-		color:#ECECEC;
-		padding-top: 0px;
-		margin: 0 auto;
-	}
-	header #branding,
-	header nav,
-	header nav li,
-	
-	/*#newsletter h1,
-	#newsletter form,*/
-	#boxes .box,
-	article#main-col
-	{
-		float:none;
-		text-align: center;
-		width: 100%;
-		margin: 0 0 0 0px;
-		padding: 0 10px 0 10px;
-	}
-	/* Form Box Containers */
+	/* Forms Box Header Title */
 	h3
 	{
 		text-align: center;
 	}
+	/* Forms Container */
 	aside#sidebar .quote
 	{
 		width:100%;
@@ -592,25 +449,128 @@ footer
 		padding:5px;
 		text-align: left;
 	}
-	header
+	/* Button Containers */
+	.buttonContainer
 	{
-		padding-bottom:20px;
+		width: 100%;
+		text-align: center;
 	}
+	.buttonContainer2
+	{
+		width: 100%;
+		text-align: left;
+	}
+	.buttonContainer3
+	{
+		width: 100%;
+		text-align: right;
+	}
+
+	/* Login Button */
+	.button_1
+	{
+		height:38px;
+		background:#e8491d;
+		border:0;
+		padding-left: 20px;
+		padding-right:20px;
+		color:#ffffff;
+		margin: 0 auto;
+	}
+
+	/* Logout Button */
+	.button_2
+	{
+		height:23px;
+		background:#e8491d;
+		border:0;
+		padding-left: 20px;
+		padding-right:20px;
+		color:#ffffff;
+		margin: 0 auto;
+	}
+
+	/* Grade and Generate Code Buttons */
+	.button_3
+	{
+		height:38px;
+		background:#e8491d;
+		border:0;
+		padding-left: 20px;
+		padding-right:20px;
+		color:#ffffff;
+		margin: 10px auto;
+	}
+
+	/* Return Buttons */
+	.button_4
+	{
+		height:38px;
+		background:#e8491d;
+		border:0;
+		padding-left: 20px;
+		padding-right:20px;
+		color:#ffffff;
+		margin: 0 auto;
+	}
+
+	/* Submit Buttons */
+	.button_5
+	{
+		height:38px;
+		background:#e8491d;
+		border:0;
+		padding-left: 20px;
+		padding-right:20px;
+		color:#ffffff;
+		margin: 0 auto;
+	}
+	/* Footer */
 	footer 
 	{
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		padding: 5px;
+		padding: 10px 20px 10px 0;
 		color:#ffffff;
 		background-color:#e8491d;
 		text-align: center;
-		visibility: hidden;
 	}
-	.container
+}
+
+/* Mobile Phones */
+@media (max-width: 576px) 
+{
+	header #branding,
+	header nav li,
+	
+	/*#newsletter h1,
+	#newsletter form,*/
+	#boxes .box,
+	article#main-col
 	{
+		float:none;
+		text-align: center;
 		width: 100%;
 	}
+	/* Global Container */
+	.container
+	{
+		height: 100%;
+		width: 100%;
+		overflow-x: hidden;
+		overflow-y: auto;
+		padding-right: 20px;
+		padding-bottom: 20px;
+		margin: 0px 0px 0px 0px;
+	}
+	/* Header */
+	header, header nav
+	{
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+	/* Forms Background Box */
 	.dark
 	{
 		left: -30px;
@@ -620,6 +580,37 @@ footer
 		color:#ffffff;
 		width: 100%;
 		margin: 150 auto;
+	}
+	/* Main Header Title */
+	h1
+	{
+		font-size: 20px;	
+	}
+	/* Main Header Links */
+	header nav a
+	{
+		font-size: 12px;
+	}
+	/* Forms Box Header Title */
+	h3
+	{
+		text-align: center;
+	}
+	/* Forms Container */
+	aside#sidebar .quote
+	{
+		width:100%;
+		box-sizing: border-box;
+		padding:5px;
+		text-align: center;
+	}
+	/* Input Box Container */
+	input
+	{
+		width:100%;
+		box-sizing: border-box;
+		padding:5px;
+		text-align: left;
 	}
 	/* Button Containers */
 	.buttonContainer
@@ -695,5 +686,37 @@ footer
 		padding-right:20px;
 		color:#ffffff;
 		margin: 0 auto;
+	}
+	/* Footer */
+	footer 
+	{
+		position: fixed;
+		bottom: 0px;
+		width: 100%;
+		padding: 0px 20px 0px 0;
+		color:#ffffff;
+		background-color:#e8491d;
+		text-align: center;
+		font-size: 12px;
+		margin: 0px 0px 0px 0px;
+		overflow-x: hidden;
+	}
+}
+/* Mobile Phones With Virtual Keyboard Up */
+@media screen and (max-height: 350px)
+{
+	/* Footer */
+	footer 
+	{
+		position: fixed;
+		bottom: 0px;
+		width: 100%;
+		padding: 0px 20px 0px 0;
+		color:#ffffff;
+		background-color:#e8491d;
+		text-align: center;
+		font-size: 12px;
+		margin: 0px 0px -45px 0px;
+		overflow-x: hidden;
 	}
 }
