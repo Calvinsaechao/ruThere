@@ -52,7 +52,6 @@
               <input type="email" placeholder="Enter your Google Email" name="email" required minLength = "1">
             </div>
             <!-- Input box container Title and Label -->
-            <!-- Input box container Title and Label -->
             <div>
               <label><br>
                 Password</label>
@@ -62,6 +61,7 @@
                 <br><button class="button_1" type="submit">Login</button>
               </div>
               <!-- Button Container -->
+              <a href="ruThereWithGoogleSheets.pdf" download style="color:red">Instructor README (PDF)</a>
             </div>
             <!-- Input box container Title and Label -->
           </form>
