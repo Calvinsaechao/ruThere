@@ -21,7 +21,14 @@ public class GoogleSheets {
     private ArrayList<Integer> sheetAddresses;
     private Sheets service;
     private static final double DISTANCE_TOLERANCE = 100; // Feet Range of geolocation from professor to student
-
+    /**
+     * The initializer method that takes a sheet id and Service from google
+     * to initialize all of the parameters necessary for future calls
+     * 
+     * @param sheetId
+     * @param service API by google
+     * @throws IOException
+     */
     public  GoogleSheets(String sheetId, Sheets service) throws IOException {
         this.sheetId = sheetId;
         this.service = service;
@@ -49,7 +56,13 @@ public class GoogleSheets {
             }
         }
     }
-
+    /**
+     * Function that takes a sheetName and generates 
+     * at a current date
+     * 
+     * @param sheetName
+     * @throws IOException
+     */
     public void generateKeyFor(String sheetName) throws IOException {
         if(sheetDoesExist(sheetName)) {
             //get the grid of a given sheet
@@ -95,7 +108,16 @@ public class GoogleSheets {
         }
 
     }
-
+    /**
+     * Function that validates a student at a given section
+     * 
+     * @param studentId
+     * @param sheetName
+     * @param key
+     * @param message
+     * @return
+     * @throws IOException
+     */
     public  boolean validateStudent(String studentId, String sheetName, String key, String message) throws IOException{
         if(sheetDoesExist(sheetName)) {
             List<List<Object>> grid = getGridOf(sheetName);
@@ -109,11 +131,11 @@ public class GoogleSheets {
             }
         } else {
             System.out.println("The section you typed does not exist");
+            return false;
         }
-        return false;
     }
     /**
-     * Validates the student's geolocation in the following fashion:
+     * Validates the student's geo location in the following fashion:
      * Returns true if the user is within accepted range (DISTANCE_TOLERANCE) of the professor's geolocation.
      * Returns false if not within range of the professor, given a non-existing sheetName, or fails other cases.
      * 
@@ -145,7 +167,15 @@ public class GoogleSheets {
          return false;
     	
     }
-    
+    /**
+     * Puts a String at a given coordinate at a given sheet name
+     * 
+     * @param row X coordinate
+     * @param col Y coordinate
+     * @param value
+     * @param sheetName
+     * @throws IOException
+     */
     public void enterValueInto(int row, int col, String value, String sheetName) throws IOException {
 
         int sheetAddress = getSheetAddress(sheetName);
@@ -170,7 +200,12 @@ public class GoogleSheets {
         this.service.spreadsheets().batchUpdate(this.sheetId, batchUpdateRequest).execute();
 
     }
-
+    /**
+     * Tells if a given sheet exists
+     * 
+     * @param sheetName
+     * @return boolean
+     */
     private int getSheetAddress(String sheetName) {
         for(int i = 0; i < sheetNames.size(); i++) {
             if(sheetName.toLowerCase().equals(this.sheetNames.get(i))) {
@@ -179,11 +214,19 @@ public class GoogleSheets {
         }
         return -1;
     }
-
+    /**
+     * @return a random 4 digit code
+     */
     private int generateNewCode() {
         return (new Random().nextInt(9000) + 1000);
     }
-
+    /**
+     * Finds a student index in a given sheet
+     * 
+     * @param studentId
+     * @param grid
+     * @return
+     */
     private int findStudentRow(String studentId, List<List<Object>> grid) {
         int studentCount = Integer.parseInt(grid.get(0).get(5).toString());
 
@@ -195,7 +238,12 @@ public class GoogleSheets {
         }
         return -1;
     }
-
+    /**
+     * Finds if a sheet exists at a given ID
+     * 
+     * @param sheetName
+     * @return boolean
+     */
     private boolean sheetDoesExist(String sheetName) {
         for(int i = 0; i < sheetNames.size(); i++) {
             if(sheetName.toLowerCase().equals(this.sheetNames.get(i))) {
@@ -204,7 +252,13 @@ public class GoogleSheets {
         }
         return false;
     }
-
+    /**
+     * Makes sure the key in the sheet is the same
+     * 
+     * @param key
+     * @param grid
+     * @return
+     */
     private boolean keyIsValid(String key, List<List<Object>> grid) {
         int studentCount = Integer.parseInt(grid.get(0).get(5).toString());
         int dateCount = Integer.parseInt(grid.get(1).get(5).toString());
@@ -217,11 +271,18 @@ public class GoogleSheets {
         }
 
     }
-
+    /**
+     * @return String a current date in "MM/dd/yy" format
+     */
     private String getTimeStamp() {
         return new SimpleDateFormat("MM/dd/yy").format(new Date());
     }
-
+    /**
+     * 
+     * @param sheetName
+     * @return a gird of a given sheet
+     * @throws IOException
+     */
     public List<List<Object>> getGridOf(String sheetName) throws IOException {
         Sheets.Spreadsheets.Values.Get request =
                 service.spreadsheets()
@@ -230,7 +291,9 @@ public class GoogleSheets {
         ValueRange response = request.execute();
         return response.getValues();
     }
-    
+    /**
+     * @return names of all sheets at a given ID
+     */
     public ArrayList<String> getSheetNames() {
         return sheetNames;
     }
