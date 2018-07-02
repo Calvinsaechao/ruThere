@@ -130,21 +130,15 @@ public class ruThere {
                 .build();
     }
 
-    public static String getSpreadsheetId(Scanner kb, Sheets service) throws IOException{
-        while(true) {
-            try {
-                System.out.print("Enter your spreadsheet ID--> ");
-                String spreadsheetId = kb.nextLine();
-                service.spreadsheets().values().get(spreadsheetId, "F1:F2");
-                return spreadsheetId;
-            } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
-                System.out.println("Invalid Sheet ID");
-            }
-        }
-    }
+    /**
+     * Generates a new code at a given sheetName
+     * @param email provided by professor
+     * @param sheetName provided by professor
+     * @return
+     * @throws IOException
+     */
     public static boolean generateCode(String email, String sheetName) throws IOException {	
     	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
-        //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
         String spreadsheetId = (String) professorInfo.get("sheetId");
         Sheets service = getSheetsService();
         GoogleSheets mySheet = new GoogleSheets(spreadsheetId, service);
@@ -157,16 +151,14 @@ public class ruThere {
         }
         return false;
     }
-    
-    public static void main(String[] args) throws IOException {
-    	JSONObject professorInfo = (JSONObject) getEmailInfo("username@gmail.com");
-        //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
-        String spreadsheetId = (String) professorInfo.get("sheetId");
-        Sheets service = getSheetsService();
-        GoogleSheets mySheet = new GoogleSheets(spreadsheetId, service);
-        String sheetNames = mySheet.getSheetNames().get(0);
-    }
-    
+
+    /**
+     * grades all student at a given sheet name
+     * @param email provided by professor
+     * @param sheetName provided by professor
+     * @return
+     * @throws IOException
+     */
     public static boolean gradeCourses(String email, String sheetName) throws IOException {
     	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
     	String spreadsheetId = (String)professorInfo.get("sheetId");
@@ -201,6 +193,17 @@ public class ruThere {
         return false;
     }
     
+    /**
+     * Writes the Professor's latitude and longitude coordinates 
+     * at a defined location on their Google Sheet.
+     * 
+     * @param email
+     * @param sheetName
+     * @param lat
+     * @param lng
+     * @return
+     * @throws IOException
+     */
     public static boolean generateCoord(String email, String sheetName, String lat, String lng) throws IOException {	
     	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
         String spreadsheetId = (String) professorInfo.get("sheetId");
@@ -215,13 +218,29 @@ public class ruThere {
         }
         return false;
     }
-    
+
+    /**
+     * Сhecks if an email is valid or not
+     * 
+     * @param email
+     * @return JSONObject info of a given email
+     * @throws IOException
+     */
     public static JSONObject validateEmail(String email) throws IOException {
     	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
     	if(professorInfo != null) return professorInfo;
     	else return null;
     }
-    
+
+
+    /**
+     * Makes sure that a given password is valid
+     * 
+     * @param professorInfo
+     * @param password
+     * @return
+     * @throws IOException
+     */
     public static boolean validatePassword(JSONObject professorInfo, String password) throws IOException {
     	System.out.println((String)professorInfo.get("password"));
     	if(((String)professorInfo.get("password")).equalsIgnoreCase(password)) {
@@ -229,7 +248,19 @@ public class ruThere {
     	}
     	else return false;
     }
-    
+    /**
+     * Given all the credentials, submit student's attendance
+     * 
+     * @param email
+     * @param sheetName
+     * @param studentId
+     * @param key
+     * @param answer
+     * @param lat
+     * @param lng
+     * @return
+     * @throws IOException
+     */
     public static boolean submitAttendance(String email, String sheetName, String studentId, String key, String answer, double lat, double lng) throws IOException {
     	JSONObject professorInfo = (JSONObject) getEmailInfo(email);
         //String spreadsheetId = "1VZ63I-Wm-pPDM-MHNODscw9treysG-9JLUyZyAC7rj0";
@@ -246,10 +277,13 @@ public class ruThere {
         return false;
     }
 
-    //public static File getFile(String fileName) {
-    //    return new File(ruThere.class.getClassLoader().getResource(fileName).getFile());
-    //}
 
+    /**
+     * returns an info found at a given email
+     * 
+     * @param email
+     * @return
+     */
     public static Object getEmailInfo(String email){
         try {
             JSONObject database = (JSONObject) new JSONParser().parse(
