@@ -45,6 +45,7 @@
         <div class="dark">
           <h3>Instructor's Login</h3>
           <!-- Account Form -->
+          <a href="ruThereWithGoogleSheets.pdf" download style="color:red">Instructor README (PDF)</a>
           <form action="login" method="post" class="quote">
             <!-- Input box container Title and Label -->
             <div>
@@ -61,7 +62,6 @@
                 <br><button class="button_1" type="submit">Login</button>
               </div>
               <!-- Button Container -->
-              <a href="ruThereWithGoogleSheets.pdf" download style="color:red">Instructor README (PDF)</a>
             </div>
             <!-- Input box container Title and Label -->
           </form>
